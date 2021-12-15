@@ -34,4 +34,5 @@
 # Custom
 .vscode
 Makefile
-obj/
+debug/*
+release/*
