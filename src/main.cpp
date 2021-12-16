@@ -1,6 +1,7 @@
-#include "common.h"
+// #include "common_external_includes.h"
+#include "game.h"
 
 int main ()
 {
-    std::cout << "hello world" << std::endl;
+    return 0;
 }
