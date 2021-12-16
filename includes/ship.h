@@ -10,5 +10,4 @@ class Ship
     public:
 
         Ship(sf::RenderWindow& w);
-
 };
