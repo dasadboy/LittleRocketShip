@@ -1,5 +1,6 @@
 // #include "common_external_includes.h"
-#include "constants.h"
+// #include "constants.h"
+#include "ship.h"
 
 typedef std::mt19937 rng_t;
 
