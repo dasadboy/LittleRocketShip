@@ -7,8 +7,8 @@ window(w)
 {
     currY = 0;
     distanceToFurthestObstacle = 0;
-    std::random_device seed; // get seed
-    generator.seed(seed); // set seed for generator
+    std::random_device ranDevice; // init random device
+    generator.seed(ranDevice()); // spawn generator with seed from ranDevice
     udist = std::uniform_int_distribution<int>(0, FIELD_CONSTS::MAX_DIST_BETWEEN_OBSTACLES); // uniform distribution
     
 }
