@@ -6,3 +6,4 @@
 #include "SFML/System.hpp"
 #include <deque>
 #include <random>
+#include <cmath>
