@@ -5,7 +5,7 @@ Game::Game()
 
 void Game::init()
 {
-    this->window.create(sf::VideoMode(640, 640), "FeelsRocketMan");
+    this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), "FeelsRocketMan");
 }
 
 void Game::run()
@@ -17,10 +17,12 @@ void Game::run()
         {
             if (event.type == sf::Event::Closed)
                 terminate();
+            else if (event.type == sf::Event::MouseButtonPressed)
+                terminate();
         }
         this->window.clear(sf::Color::Black);
-        std::cout << "Black" << std::endl;
-        // drawScreen();
+        drawScreen();
+        this->window.display();
     }
 }
 

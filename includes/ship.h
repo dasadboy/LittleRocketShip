@@ -3,8 +3,9 @@
 class Ship
 {
     private:
-        int radius;
-        int health;
+        float radius;
+        unsigned int health;
+        sf::Texture texture;
         sf::CircleShape shipSprite;
         sf::Vector2f origin;
         sf::Vector2f vel;

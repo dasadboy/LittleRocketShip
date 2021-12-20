@@ -36,4 +36,4 @@
 Makefile
 debug/*
 release/*
-dependencies/SFML-2.5.1
+dependencies/SFML*

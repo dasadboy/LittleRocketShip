@@ -5,14 +5,16 @@ Ship::Ship() {
     this->vel = SHIP_CONSTS::INITIAL_VELOCITY;
     this->health = SHIP_CONSTS::INITIAL_HEALTH;
 
-    sf::Texture texture;
-    if (!texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
+    if (!(this->texture).loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE, SHIP_CONSTS::TEXTURE_RECT))
     {
-        std::cout << "ship texture could not be loaded.\n";
+        std::cout << "Ship texture could not be loaded." << std::endl;
     }
     texture.setSmooth(true);
-    this->shipSprite = sf::CircleShape(this->radius, 80);
+    this->shipSprite = sf::CircleShape(this->radius);
+    this->shipSprite.setFillColor(sf::Color::White);
     this->shipSprite.setTexture(&texture);
+    this->shipSprite.setTextureRect(SHIP_CONSTS::TEXTURE_RECT);
+    this->shipSprite.setOrigin({this->radius, this->radius});
     this->shipSprite.setPosition(SHIP_CONSTS::INITIAL_POSITION);
 }
 
