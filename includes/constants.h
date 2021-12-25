@@ -18,15 +18,24 @@ namespace SHIP_CONSTS
 
     const size_t POINT_COUNT = 160;
 
-    const sf::Vector2f INITIAL_VELOCITY = {0, 0};
+    const float INITIAL_X_VELOCITY = 0;
 
     const float MAXIMUM_VELOCITY = 100.f;
 
     const unsigned int INITIAL_HEALTH = 100;
 
-    const sf::Vector2f INITIAL_POSITION = {360.f, 645.f};
+    const sf::Vector2f INITIAL_POSITION = {360.f, 500.f};
 
     const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
+
+    const float THRUST_L1 = 100.f;
+
+}
+
+namespace GAME_CONSTS 
+{
+    
+    const sf::Vector2f INITIAL_VELOCITY = {0, 0};
 
 }
 

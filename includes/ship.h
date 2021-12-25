@@ -7,8 +7,7 @@ class Ship
         unsigned int health;
         sf::Texture texture;
         sf::CircleShape shipSprite;
-        sf::Vector2f origin;
-        sf::Vector2f vel;
+        float vel;
 
     public:
 
@@ -16,9 +15,13 @@ class Ship
 
         bool collides(sf::Vector2f& pixelPos);
 
-        void boost(sf::Vector2f& accel);
+        void trackMouse(float deg);
 
-        void decelerate();
+        void move(float dx);
+
+        float getAngle() const;
+
+        sf::Vector2f getPosition() const;
 
         void draw(sf::RenderWindow& window);
 

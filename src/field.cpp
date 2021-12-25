@@ -2,8 +2,7 @@
 
 typedef std::mt19937 rng_t;
 
-Field::Field(sf::RenderWindow& w):
-window(w)
+Field::Field()
 {
     this->currY = 0;
     this->distanceToFurthestObstacle = 0;
@@ -12,6 +11,8 @@ window(w)
     this->udist = std::uniform_int_distribution<int>(0, FIELD_CONSTS::MAX_DIST_BETWEEN_OBSTACLES); // uniform distribution
     
 }
+
+void Field::move(float dy) {};
 
 int Field::generateObstacle() 
 {
@@ -28,7 +29,7 @@ void Field::fillObstacles()
     }
 }
 
-void Field::draw()
+void Field::draw(sf::RenderWindow& window)
 {
     // TODO: implement draw
 }

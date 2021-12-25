@@ -9,19 +9,20 @@ class Field
     private:
         int currY; 
         std::deque<int> obstacles; // int used as placeholder
-        sf::RenderWindow& window;
         rng_t generator;
         std::uniform_int_distribution<int> udist;
         int distanceToFurthestObstacle;
 
     public:
 
-        Field(sf::RenderWindow& w);
+        Field();
+
+        void move(float dy);
 
         int generateObstacle();
 
         void fillObstacles();
 
-        void draw();
+        void draw(sf::RenderWindow& w);
 
 };
