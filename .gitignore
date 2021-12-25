@@ -36,3 +36,4 @@
 Makefile
 debug/*
 release/*
+dependencies/*
