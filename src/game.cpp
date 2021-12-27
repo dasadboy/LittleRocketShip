@@ -3,6 +3,8 @@
 #define PI 3.14159265f
 #define CCW90 90.f
 #define DEGREES_IN_A_CIRCLE 360.f
+#define radToDegrees(rad) rad * 180.f / (PI)
+#define degreesToRad(deg) deg * (PI) / 180.f
 
 Game::Game()
 {
@@ -33,14 +35,14 @@ void Game::run()
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
                 this->velocity = SHIP_CONSTS::THRUST_L1;
-                this->angle = (std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)) * 180.f/(PI));
+                this->angle = (radToDegrees(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex))));
                 this->LMBHeldDown = false;
             }
             else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->ship.trackMouse(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)) * 180.f/(PI) + CCW90);
+                this->ship.trackMouse((radToDegrees(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)))) + CCW90);
                 this->LMBHeldDown = true;
             }
         }
@@ -55,8 +57,8 @@ void Game::moveShip()
 {
     float deltap = this->deltat.getElapsedTime().asSeconds() * this->velocity;
     this->deltat.restart();
-    this->ship.move(deltap * std::cos(this->angle * (PI)/180.f));
-    this->field.move(deltap * std::sin(this->angle * (PI)/180.f));
+    this->ship.move(deltap * std::cos((degreesToRad(this->angle))));
+    this->field.move(deltap * std::sin((degreesToRad(this->angle))));
 }
 
 void Game::terminate()
