@@ -13,7 +13,7 @@ class Ship
 
         Ship();
 
-        bool collides(sf::Vector2f& pixelPos);
+        bool collides(sf::Vector2f& pixelPos) const;
 
         void trackMouse(float deg);
 

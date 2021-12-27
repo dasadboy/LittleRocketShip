@@ -17,7 +17,7 @@ Ship::Ship() {
     this->shipSprite.setPosition(SHIP_CONSTS::INITIAL_POSITION);
 }
 
-bool Ship::collides(sf::Vector2f& pixelPos)
+bool Ship::collides(sf::Vector2f& pixelPos) const
 {
     auto [x, y] = this->shipSprite.getPosition();
     float dx = pixelPos.x - x, dy = pixelPos.y - y;
