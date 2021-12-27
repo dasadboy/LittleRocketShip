@@ -37,6 +37,8 @@ namespace GAME_CONSTS
     
     const sf::Vector2f INITIAL_VELOCITY = {0, 0};
 
+    const std::string WINDOW_NAME = "FeelsRocketMan";
+
 }
 
 namespace DISPLAY_CONSTS 

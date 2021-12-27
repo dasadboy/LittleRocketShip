@@ -1,7 +1,7 @@
 #include "game.h"
 
 #define PI 3.14159265f
-#define CCW90 90
+#define CCW90 90.f
 #define DEGREES_IN_A_CIRCLE 360.f
 
 Game::Game()
@@ -13,7 +13,7 @@ Game::Game()
 
 void Game::init()
 {
-    this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), "FeelsRocketMan");
+    this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
 }
 
 void Game::run()
