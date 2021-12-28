@@ -13,9 +13,11 @@ Game::Game()
     this->angle = 90.f;
 }
 
-void Game::init()
+int Game::init()
 {
     this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
+    int returnCode = this->ship.loadTexture();
+    return returnCode;
 }
 
 void Game::run()

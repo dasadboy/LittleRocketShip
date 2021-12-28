@@ -18,7 +18,7 @@ class Game
 
         Game();
 
-        void init();
+        int init();
 
         void run();
 

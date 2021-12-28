@@ -49,3 +49,8 @@ namespace DISPLAY_CONSTS
     const unsigned int HEIGHT = 720;
 
 }
+
+namespace ERROR_CODES
+{
+    const unsigned int FILE_NOT_FOUND = 1;
+}

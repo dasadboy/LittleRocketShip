@@ -4,7 +4,8 @@
 int main ()
 {
     Game game;
-    game.init();
+    int returnCode = game.init();
+    if (returnCode) return returnCode;
     game.run();
     return 0;
 }
