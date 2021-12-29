@@ -4,3 +4,6 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
+#include <deque>
+#include <random>
+#include <cmath>
