@@ -1,6 +1,6 @@
 // #include "common_external_includes.h"
 // #include "constants.h"
-#include "ship.h"
+#include "obstacles.h"
 
 typedef std::mt19937 rng_t;
 
@@ -8,10 +8,11 @@ class Field
 {
     private:
         int currY; 
-        std::deque<int> obstacles; // int used as placeholder
+        std::vector<int> obstacles; // int used as placeholder
         rng_t generator;
         std::uniform_int_distribution<int> udist;
-        int distanceToFurthestObstacle;
+        sf::Clock obstacleGenerationTimer;
+        int obstacleGenerationTimeCutoff;
 
     public:
 
@@ -19,7 +20,7 @@ class Field
 
         void move(float dy);
 
-        int generateObstacle();
+        void generateObstacle();
 
         void fillObstacles();
 

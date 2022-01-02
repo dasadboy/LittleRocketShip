@@ -5,7 +5,16 @@ namespace FIELD_CONSTS
 
     const size_t MAX_OBSTACLES = 50;
 
-    const int MAX_DIST_BETWEEN_OBSTACLES = 50;
+    const int MAX_TIME_BETWEEN_OBSTACLES = 500;
+
+    const int MIN_TIME_BETWEEN_OBSTACLES = 1000;
+
+}
+
+namespace OBSTACLE_CONSTS
+{
+
+    const int INITIAL_Y_POSITION = -200;
 
 }
 
