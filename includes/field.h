@@ -8,9 +8,10 @@ class Field
 {
     private:
         int currY; 
-        std::vector<int> obstacles; // int used as placeholder
-        rng_t generator;
-        std::uniform_int_distribution<int> udist;
+        std::vector<Obstacle> obstacles; // int used as placeholder
+        static std::random_device ranDevice;
+        static rng_t generator;
+        static std::uniform_int_distribution<int> udist;
         sf::Clock obstacleGenerationTimer;
         int obstacleGenerationTimeCutoff;
 

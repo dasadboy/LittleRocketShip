@@ -16,6 +16,10 @@ namespace OBSTACLE_CONSTS
 
     const int INITIAL_Y_POSITION = -200;
 
+    const int MINIMUM_SPEED = 80.0f;
+
+    const int MAXIMUM_SPEED = 120.0f;
+
 }
 
 namespace SHIP_CONSTS 
@@ -61,5 +65,7 @@ namespace DISPLAY_CONSTS
 
 namespace ERROR_CODES
 {
+
     const unsigned int FILE_NOT_FOUND = 1;
+
 }

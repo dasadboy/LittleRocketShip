@@ -2,6 +2,10 @@
 
 typedef std::mt19937 rng_t;
 
+std::random_device Field::ranDevice;
+rng_t Field::generator (Field::ranDevice());
+
+
 Field::Field()
 {
     this->currY = 0;
@@ -16,14 +20,14 @@ void Field::move(float dy)
 {
     for (auto& ob : this->obstacles)
     {
-        ob -= dy;
+        ob.move(dy);
     }
     sort(this->obstacles.begin(), this->obstacles.end(), std::greater<int>());
 }
 
 void Field::generateObstacle() 
 {
-    obstacles.push_back(OBSTACLE_CONSTS::INITIAL_Y_POSITION);
+    obstacles.emplace_back();
 }
 
 void Field::draw(sf::RenderWindow& window)
