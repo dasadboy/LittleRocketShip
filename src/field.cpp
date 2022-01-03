@@ -22,7 +22,7 @@ void Field::move(float dy)
     {
         ob.move(dy);
     }
-    sort(this->obstacles.begin(), this->obstacles.end(), std::greater<int>());
+    sort(this->obstacles.begin(), this->obstacles.end(), ObstacleCompare());
 }
 
 void Field::generateObstacle() 
