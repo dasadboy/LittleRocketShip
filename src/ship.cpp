@@ -1,5 +1,7 @@
 #include "ship.h"
 
+sf::Texture Ship::texture;
+
 Ship::Ship() {
     this->radius = SHIP_CONSTS::SHIP_RADIUS;
     this->health = SHIP_CONSTS::INITIAL_HEALTH;
@@ -8,18 +10,8 @@ Ship::Ship() {
     this->shipSprite.setFillColor(sf::Color::White);
     this->shipSprite.setOrigin({this->radius, this->radius});
     this->shipSprite.setPosition(SHIP_CONSTS::INITIAL_POSITION);
-}
-
-int Ship::loadTexture() {
-    if (!(this->texture).loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE, SHIP_CONSTS::TEXTURE_RECT))
-    {
-        throw "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
-        return ERROR_CODES::FILE_NOT_FOUND;
-    }
-    this->texture.setSmooth(true);
-    this->shipSprite.setTexture(&texture);
+    this->shipSprite.setTexture(&Ship::texture);
     this->shipSprite.setTextureRect(SHIP_CONSTS::TEXTURE_RECT);
-    return 0;
 }
 
 bool Ship::collides(sf::Vector2f& pixelPos) const

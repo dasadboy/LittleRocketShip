@@ -1,5 +1,7 @@
+#pragma once
 // #include "common_external_includes.h"
 #include "field.h"
+#include "ship.h"
 
 class Game
 {

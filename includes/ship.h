@@ -1,3 +1,4 @@
+#pragma once
 #include "constants.h"
 
 class Ship
@@ -5,7 +6,7 @@ class Ship
     private:
         float radius;
         unsigned int health;
-        sf::Texture texture;
+        static sf::Texture texture;
         sf::CircleShape shipSprite;
         float vel;
 
@@ -13,7 +14,15 @@ class Ship
 
         Ship();
 
-        int loadTexture();
+        static int loadTexture() {
+            if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
+            {
+                throw "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
+                return ERROR_CODES::FILE_NOT_FOUND;
+            }
+            Ship::texture.setSmooth(true);
+            return 0;
+        }
 
         bool collides(sf::Vector2f& pixelPos) const;
 

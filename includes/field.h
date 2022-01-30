@@ -1,3 +1,4 @@
+#pragma once
 // #include "common_external_includes.h"
 // #include "constants.h"
 #include "obstacles.h"
@@ -7,11 +8,12 @@ typedef std::mt19937 rng_t;
 class Field
 {
     private:
-        int currY; 
-        std::vector<Obstacle> obstacles; // int used as placeholder
+        int currY;
+        std::vector<Obstacle*> obstacles; // int used as placeholder
         static std::random_device ranDevice;
         static rng_t generator;
-        static std::uniform_int_distribution<int> udist;
+        static std::uniform_real_distribution<float> timeDist;
+        static std::uniform_int_distribution<int> randomObstacleDist;
         sf::Clock obstacleGenerationTimer;
         int obstacleGenerationTimeCutoff;
 
@@ -19,11 +21,11 @@ class Field
 
         Field();
 
-        void move(float dy);
+        void move(float dy, float dt);
 
         void generateObstacle();
 
-        void fillObstacles();
+        void removeObstacles();
 
         void draw(sf::RenderWindow& w);
 

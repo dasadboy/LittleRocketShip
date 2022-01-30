@@ -7,3 +7,6 @@
 #include <deque>
 #include <random>
 #include <cmath>
+#include <string>
+#include <unordered_map>
+#include <utility>

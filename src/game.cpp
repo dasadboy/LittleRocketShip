@@ -15,8 +15,26 @@ Game::Game()
 
 int Game::init()
 {
+    int returnCode = 0;
+    returnCode = Ship::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
+    returnCode = ObstacleHolder<Obstacle1>::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
+    returnCode = ObstacleHolder<Obstacle2>::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
+    returnCode = ObstacleHolder<Obstacle3>::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
+    returnCode = ObstacleHolder<Obstacle4>::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
+    returnCode = ObstacleHolder<Obstacle5>::loadTexture();
+    if (returnCode != 0)
+        return returnCode;
     this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
-    int returnCode = this->ship.loadTexture();
     return returnCode;
 }
 
@@ -25,6 +43,8 @@ void Game::run()
     while (this->window.isOpen())
     {
         moveShip();
+        this->field.generateObstacle();
+        this->field.removeObstacles();
         sf::Event event;
         while (this->window.pollEvent(event))
         {
@@ -57,10 +77,11 @@ void Game::run()
 
 void Game::moveShip() 
 {
-    float deltap = this->deltat.getElapsedTime().asSeconds() * this->velocity;
+    float dt = this->deltat.getElapsedTime().asSeconds();
+    float deltap = dt * this->velocity;
     this->deltat.restart();
     this->ship.move(deltap * std::cos((degreesToRad(this->angle))));
-    this->field.move(deltap * std::sin((degreesToRad(this->angle))));
+    this->field.move(deltap * -std::sin((degreesToRad(this->angle))), dt);
 }
 
 void Game::terminate()
