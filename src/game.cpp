@@ -1,16 +1,15 @@
 #include "game.h"
 
-#define PI 3.14159265f
-#define CCW90 90.f
-#define DEGREES_IN_A_CIRCLE 360.f
-#define radToDegrees(rad) rad * 180.f / (PI)
-#define degreesToRad(deg) deg * (PI) / 180.f
+typedef std::mt19937 rng_t;
+
+std::random_device Game::ranDevice;
+rng_t Game::generator (Game::ranDevice());
+std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES); // uniform distribution
 
 Game::Game()
 {
     this->LMBHeldDown = false;
-    this->velocity = 0.f;
-    this->angle = 90.f;
+    this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
 }
 
 int Game::init()
@@ -43,8 +42,13 @@ void Game::run()
     while (this->window.isOpen())
     {
         moveShip();
-        this->field.generateObstacle();
-        this->field.removeObstacles();
+        if (this->obstacleGenerationTimer.getElapsedTime().asMilliseconds() > this->obstacleGenerationTimeCutoff)
+        {
+            this->field.generateObstacle();
+            this->field.removeObstacles();
+            this->obstacleGenerationTimer.restart();
+            this->obstacleGenerationTimeCutoff = Game::timeDist(Game::generator);
+        }
         sf::Event event;
         while (this->window.pollEvent(event))
         {
@@ -56,15 +60,14 @@ void Game::run()
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->velocity = SHIP_CONSTS::THRUST_L1;
-                this->angle = (radToDegrees(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex))));
+                this->ship.setVelocity(SHIP_CONSTS::THRUST_L1, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = false;
             }
             else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->ship.trackMouse((radToDegrees(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)))) + CCW90);
+                this->ship.trackMouse(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = true;
             }
         }
@@ -78,10 +81,9 @@ void Game::run()
 void Game::moveShip() 
 {
     float dt = this->deltat.getElapsedTime().asSeconds();
-    float deltap = dt * this->velocity;
+    this->ship.move(dt);
+    this->field.move(dt);
     this->deltat.restart();
-    this->ship.move(deltap * std::cos((degreesToRad(this->angle))));
-    this->field.move(deltap * -std::sin((degreesToRad(this->angle))), dt);
 }
 
 void Game::terminate()

@@ -6,10 +6,6 @@ namespace FIELD_CONSTS
 
     const size_t MAX_OBSTACLES = 50;
 
-    const int MAX_TIME_BETWEEN_OBSTACLES = 3000;
-
-    const int MIN_TIME_BETWEEN_OBSTACLES = 2000;
-
     const float OBSTACLE_DELETION_CUTOFF = 1120;
 
     const int OBSTACLE_NUMBERS_LOWER = 1;
@@ -60,6 +56,10 @@ namespace SHIP_CONSTS
 
     const float THRUST_L1 = 100.f;
 
+    const float INITIAL_VELOCITY = 0.f;
+
+    const float INITIAL_ANGLE = 90;
+
 }
 
 namespace GAME_CONSTS 
@@ -68,6 +68,10 @@ namespace GAME_CONSTS
     const sf::Vector2f INITIAL_VELOCITY = {0, 0};
 
     const std::string WINDOW_NAME = "FeelsRocketMan";
+
+    const int MAX_TIME_BETWEEN_OBSTACLES = 3000;
+
+    const int MIN_TIME_BETWEEN_OBSTACLES = 2000;
 
 }
 

@@ -22,9 +22,9 @@ Obstacle::Obstacle()
     this->sprite.setPosition({this->posX, this->posY});
 }
 
-void Obstacle::move(float dy, float dt)
+void Obstacle::move(float dt)
 {
-    this->posY += this->speed * dt + dy;
+    this->posY += this->speed * dt;
     this->sprite.setPosition({this->posX, this->posY});
 }
 

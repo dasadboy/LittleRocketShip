@@ -8,6 +8,9 @@ class Ship
         unsigned int health;
         static sf::Texture texture;
         sf::CircleShape shipSprite;
+        float velocity;
+        float angle;
+        sf::Vector2f pos;
         float vel;
 
     public:
@@ -29,6 +32,8 @@ class Ship
         void trackMouse(float deg);
 
         void move(float dx);
+
+        void setVelocity(float vel, float angle);
 
         float getAngle() const;
 

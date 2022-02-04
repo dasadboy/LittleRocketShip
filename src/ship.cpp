@@ -1,10 +1,20 @@
 #include "ship.h"
 
+#define PI 3.14159265f
+#define FULL_CIRCLE 6.2831853 // 2 * PI
+#define HALF_CIRCLE PI
+#define CCW90 1.57079632f // .5 * PI
+#define radToDegrees(rad) rad * 180.f / (PI)
+#define degreesToRad(deg) deg * (PI) / 180.f
+
 sf::Texture Ship::texture;
 
 Ship::Ship() {
     this->radius = SHIP_CONSTS::SHIP_RADIUS;
     this->health = SHIP_CONSTS::INITIAL_HEALTH;
+    this->angle = SHIP_CONSTS::INITIAL_ANGLE;
+    this->velocity = SHIP_CONSTS::INITIAL_VELOCITY;
+    this->pos = SHIP_CONSTS::INITIAL_POSITION;
 
     this->shipSprite = sf::CircleShape(this->radius);
     this->shipSprite.setFillColor(sf::Color::White);
@@ -21,16 +31,37 @@ bool Ship::collides(sf::Vector2f& pixelPos) const
     return this->radius < std::sqrt(dx * dx + dy * dy);
 }
 
-void Ship::trackMouse(float deg)
+void Ship::trackMouse(float rad)
 {
-    shipSprite.setRotation(deg);
+    shipSprite.setRotation(( radToDegrees(( rad + CCW90 )) ));
 }
 
-void Ship::move(float dx) 
+#define left_bound SHIP_CONSTS::SHIP_RADIUS
+#define right_bound DISPLAY_CONSTS::WIDTH - SHIP_CONSTS::SHIP_RADIUS
+#define upper_bound SHIP_CONSTS::SHIP_RADIUS
+#define lower_bound DISPLAY_CONSTS::HEIGHT - SHIP_CONSTS::SHIP_RADIUS
+
+void Ship::move(float dt)
 {
-    auto [currX, currY]  = this->shipSprite.getPosition();
-    float x = currX + dx;
-    this->shipSprite.setPosition(x + (x < 0) * DISPLAY_CONSTS::WIDTH - (x >= DISPLAY_CONSTS::WIDTH) * DISPLAY_CONSTS::WIDTH, currY);
+    float dp = this->velocity * dt;
+    float dx = dp * std::cos( this->angle ), dy = dp * std::sin( this->angle );
+    float newx = this->pos.x + dx, newy = this->pos.y + dy;
+    this->angle += ( newx > right_bound || newx < left_bound ) * ( ( HALF_CIRCLE ) + ( this->angle > HALF_CIRCLE ) * ( FULL_CIRCLE ) - this->angle - this->angle );
+    this->angle += ( newy > lower_bound || newy < upper_bound ) * ( (FULL_CIRCLE) - this->angle - this->angle );
+    // moving left : max( x + dx (returned if x + dx > left_bound), 2 * left_bound - (x + dx) (returned if x + dx < left_bound) )
+    // moving right : min( x + dx (returned if x + dx < right_bound), right_bound - (x + dx - right_bound) = 2*right_bound - x - dx (returned if x + dx > right_bound) )
+    // moving up : max( y + dy (returned if y + dy > upper_bound), 2 * upper_bound - (x + dx) (returned if y + dy < upper_bound) )
+    // moving down : min( y + dy (returned if y + dy < lower_bound), lower_bound - (y + dy - lower_bound) = 2*lower_bound - y - dy (returned if y + dy > lower_bound) )
+    this->pos.x = std::min(std::max( newx , 2 * ( left_bound ) - newx ) , 2 * ( right_bound ) - newx ); // x < 0 : 2 * (left_bound) - newx, 0 < x < 720 : newx, x > 720 : 2 * (right_bound) - newx
+    this->pos.y = std::min(std::max( newy , 2 * ( upper_bound ) - newy ) , 2 * ( lower_bound ) - newy ); // y < 0 : 2 * (upper_bound) - newy, 0 < y < 720 : newy, y > 720 : 2 * (lower_bound) - newy
+    this->shipSprite.setPosition( this->pos );
+}
+
+void Ship::setVelocity(float vel, float angle)
+{
+    this->velocity = vel;
+    this->angle = angle;
+    std::cout << vel << ' ' << angle << "\n";
 }
 
 float Ship::getAngle() const 

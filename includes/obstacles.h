@@ -20,7 +20,7 @@ public:
 
     Obstacle();
 
-    virtual void move(float dy, float dt);
+    virtual void move(float dt);
 
     virtual const float getYPosition();
 
@@ -33,10 +33,7 @@ class BufferObstacle : public Obstacle
 public:
     BufferObstacle() : Obstacle() {}
 
-    virtual void move(float dy, float dt) override
-    {
-        return;
-    }
+    virtual void move(float dt) override {}
 
     void draw(sf::RenderWindow& w) override {}
 

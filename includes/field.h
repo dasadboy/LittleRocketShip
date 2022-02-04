@@ -12,16 +12,13 @@ class Field
         std::vector<Obstacle*> obstacles; // int used as placeholder
         static std::random_device ranDevice;
         static rng_t generator;
-        static std::uniform_real_distribution<float> timeDist;
         static std::uniform_int_distribution<int> randomObstacleDist;
-        sf::Clock obstacleGenerationTimer;
-        int obstacleGenerationTimeCutoff;
 
     public:
 
         Field();
 
-        void move(float dy, float dt);
+        void move(float dt);
 
         void generateObstacle();
 
