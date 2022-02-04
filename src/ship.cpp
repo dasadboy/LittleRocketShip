@@ -46,8 +46,12 @@ void Ship::move(float dt)
     float dp = this->velocity * dt;
     float dx = dp * std::cos( this->angle ), dy = dp * std::sin( this->angle );
     float newx = this->pos.x + dx, newy = this->pos.y + dy;
-    this->angle += ( newx > right_bound || newx < left_bound ) * ( ( HALF_CIRCLE ) + ( this->angle > HALF_CIRCLE ) * ( FULL_CIRCLE ) - this->angle - this->angle );
+    // if ( newy > lower_bound || newy < upper_bound ) ( - this->angle - this->angle) to negate this->angle (negating mirrors angle over x-axis)
+    // add FULL_CIRCLE to maintain 0 <= this->angle < 360
     this->angle += ( newy > lower_bound || newy < upper_bound ) * ( (FULL_CIRCLE) - this->angle - this->angle );
+    // if ( newx > right_bound || newx < left_bound ) same as above but rotating by half a circle gives us angle mirrored over y-axis
+    // and add FULL_CIRCLE to maintain 0 <= this->angle < 360
+    this->angle += ( newx > right_bound || newx < left_bound ) * ( ( HALF_CIRCLE ) + ( this->angle > HALF_CIRCLE ) * ( FULL_CIRCLE ) - this->angle - this->angle );
     // moving left : max( x + dx (returned if x + dx > left_bound), 2 * left_bound - (x + dx) (returned if x + dx < left_bound) )
     // moving right : min( x + dx (returned if x + dx < right_bound), right_bound - (x + dx - right_bound) = 2*right_bound - x - dx (returned if x + dx > right_bound) )
     // moving up : max( y + dy (returned if y + dy > upper_bound), 2 * upper_bound - (x + dx) (returned if y + dy < upper_bound) )
