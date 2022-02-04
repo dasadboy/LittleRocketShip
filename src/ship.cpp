@@ -61,7 +61,6 @@ void Ship::setVelocity(float vel, float angle)
 {
     this->velocity = vel;
     this->angle = angle;
-    std::cout << vel << ' ' << angle << "\n";
 }
 
 float Ship::getAngle() const 

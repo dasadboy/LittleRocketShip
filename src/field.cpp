@@ -34,7 +34,6 @@ void Field::removeObstacles()
 
 void Field::generateObstacle() 
 {   
-    
     int obstacleNum = Field::randomObstacleDist(Field::generator);
     Obstacle* newObstacle;
     switch(obstacleNum)
