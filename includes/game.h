@@ -6,7 +6,7 @@
 class Game
 {
     private:
-        sf::RenderWindow window;
+        sf::RenderWindow& window;
         Field field;
         Ship ship;
         // ship sprite will move horizontally while field moves vertically
@@ -21,7 +21,7 @@ class Game
 
     public:
 
-        Game();
+        Game(sf::RenderWindow& window);
 
         int init();
 

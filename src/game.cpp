@@ -6,7 +6,7 @@ std::random_device Game::ranDevice;
 rng_t Game::generator (Game::ranDevice());
 std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES); // uniform distribution
 
-Game::Game()
+Game::Game(sf::RenderWindow& window) : window(window)
 {
     this->LMBHeldDown = false;
     this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;

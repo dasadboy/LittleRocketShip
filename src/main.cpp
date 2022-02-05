@@ -3,7 +3,8 @@
 
 int main ()
 {
-    Game game;
+    sf::RenderWindow window;
+    Game game(window);
     int returnCode;
     returnCode = game.init();
     if (returnCode != 0) return returnCode;
