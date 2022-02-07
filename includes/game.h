@@ -23,7 +23,7 @@ class Game
 
         Game(sf::RenderWindow& window);
 
-        int init();
+        static int loadTextures();
 
         void run();
 

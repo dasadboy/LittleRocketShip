@@ -3,11 +3,11 @@
 
 int main ()
 {
+    int returnCode;
+    returnCode = Game::loadTextures();
+    if (returnCode != 0) return returnCode;
     sf::RenderWindow window;
     Game game(window);
-    int returnCode;
-    returnCode = game.init();
-    if (returnCode != 0) return returnCode;
     game.run();
     return 0;
 }

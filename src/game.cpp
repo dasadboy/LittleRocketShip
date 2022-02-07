@@ -12,7 +12,7 @@ Game::Game(sf::RenderWindow& window) : window(window)
     this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
 }
 
-int Game::init()
+int Game::loadTextures()
 {
     int returnCode = 0;
     returnCode = Ship::loadTexture();
@@ -33,7 +33,6 @@ int Game::init()
     returnCode = ObstacleHolder<Obstacle5>::loadTexture();
     if (returnCode != 0)
         return returnCode;
-    this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
     return returnCode;
 }
 
