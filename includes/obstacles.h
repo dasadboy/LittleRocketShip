@@ -56,8 +56,6 @@ public:
     static int loadTexture()
     {
         sf::Image textureImage;
-        sf::Texture& texture = getTexture();
-        auto& outerPixels = getOuterPixels();
 
         if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
         {        
@@ -79,14 +77,15 @@ public:
                     textureImage.getPixel(x, y - 1) == emptyPixel)
                 {
                     float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX;
-                    outerPixels.emplace_back(relx, rely);
+                    ObstacleHolder<T>::outerPixels.emplace_back(relx, rely);
                 }
             }
-            sort(outerPixels.begin(), outerPixels.end());
         }
+        
+        sort(ObstacleHolder<T>::outerPixels.begin(), ObstacleHolder<T>::outerPixels.end());
 
-        texture.loadFromImage(textureImage);
-        texture.setSmooth(true);
+        ObstacleHolder<T>::texture.loadFromImage(textureImage);
+        ObstacleHolder<T>::texture.setSmooth(true);
         return 0;
     }
 

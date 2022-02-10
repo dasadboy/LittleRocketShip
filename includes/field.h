@@ -9,7 +9,7 @@ class Field
 {
     private:
         int currY;
-        std::vector<Obstacle*> obstacles; // int used as placeholder
+        std::vector<Obstacle*> obstacles;
         static std::random_device ranDevice;
         static rng_t generator;
         static std::uniform_int_distribution<int> randomObstacleDist;
