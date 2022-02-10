@@ -21,7 +21,7 @@ class Ship
             if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
             {
                 throw "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
-                return ERROR_CODES::FILE_NOT_FOUND;
+                return STATUS_CODES::FILE_NOT_FOUND;
             }
             Ship::texture.setSmooth(true);
             return 0;

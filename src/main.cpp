@@ -6,7 +6,7 @@ int main ()
     Game game;
     int returnCode;
     returnCode = game.init();
-    if (returnCode != 0) return returnCode;
+    if (returnCode != STATUS_CODES::SUCCESS) return returnCode;
     game.run();
     return 0;
 }

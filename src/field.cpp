@@ -23,9 +23,9 @@ void Field::move(float dt)
 
 void Field::removeObstacles()
 {
-    for (auto back = this->obstacles.end() - 1; (*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF; --back)
+    for (auto back = this->obstacles.end() - 1; (*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX; --back)
     {
-        if ((*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF)
+        if ((*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX)
         {
             this->obstacles.pop_back();
         }

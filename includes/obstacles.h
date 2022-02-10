@@ -62,7 +62,7 @@ public:
         if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
         {        
             throw "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
-            return ERROR_CODES::FILE_NOT_FOUND;
+            return STATUS_CODES::FILE_NOT_FOUND;
         }
 
         // getting edges
@@ -78,7 +78,7 @@ public:
                     textureImage.getPixel(x - 1, y) == emptyPixel &&
                     textureImage.getPixel(x, y - 1) == emptyPixel)
                 {
-                    float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN;
+                    float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX;
                     outerPixels.emplace_back(relx, rely);
                 }
             }

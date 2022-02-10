@@ -60,7 +60,7 @@ void Game::run()
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->ship.setVelocity(SHIP_CONSTS::THRUST_L1, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
+                this->ship.setVelocity(SHIP_CONSTS::THRUST_L1_PX_PER_S, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = false;
             }
             else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)

@@ -3,7 +3,7 @@
 
 std::random_device Obstacle::ranDevice; // init random device
 rng_t Obstacle::generator (Obstacle::ranDevice()); // spawn generator with seed from ranDevice
-std::uniform_int_distribution<int> Obstacle::speedUDist (OBSTACLE_CONSTS::MINIMUM_SPEED, OBSTACLE_CONSTS::MAXIMUM_SPEED); // uniform distribution
+std::uniform_int_distribution<int> Obstacle::speedUDist (OBSTACLE_CONSTS::MINIMUM_SPEED_PX_PER_S, OBSTACLE_CONSTS::MAXIMUM_SPEED_PX_PER_S); // uniform distribution
 std::uniform_real_distribution<float> Obstacle::scaleUDist (OBSTACLE_CONSTS::MIN_SPRITE_SCALE, OBSTACLE_CONSTS::MAX_SPRITE_SCALE); // uniform distribution
 std::uniform_real_distribution<float> Obstacle::xPosUDist (0, DISPLAY_CONSTS::WIDTH); // uniform distribution
 
