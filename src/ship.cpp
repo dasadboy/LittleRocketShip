@@ -24,7 +24,7 @@ Ship::Ship() {
     this->shipSprite.setTextureRect(SHIP_CONSTS::TEXTURE_RECT);
 }
 
-bool Ship::collides(sf::Vector2f& pixelPos) const
+bool Ship::collides(const sf::Vector2f& pixelPos) const
 {
     auto [x, y] = this->shipSprite.getPosition();
     float dx = pixelPos.x - x, dy = pixelPos.y - y;
