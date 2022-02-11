@@ -8,5 +8,5 @@ int main ()
     returnCode = game.init();
     if (returnCode != STATUS_CODES::SUCCESS) return returnCode;
     game.run();
-    return 0;
+    return STATUS_CODES::SUCCESS;
 }

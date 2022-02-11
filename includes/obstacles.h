@@ -26,6 +26,8 @@ public:
 
     virtual void draw(sf::RenderWindow& window);
 
+    virtual ~Obstacle() {}
+
 };
 
 class BufferObstacle : public Obstacle
@@ -134,12 +136,4 @@ class Obstacle5 : public ObstacleHolder<Obstacle5>
 public:
     Obstacle5() : ObstacleHolder() {}
 
-};
-
-struct ObstacleCompare
-{
-    bool operator()(Obstacle* a, Obstacle* b)
-    {
-        return a->getYPosition() < b->getYPosition();
-    }
 };

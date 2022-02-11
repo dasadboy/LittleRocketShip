@@ -8,13 +8,13 @@ std::uniform_int_distribution<int> Field::randomObstacleDist(FIELD_CONSTS::OBSTA
 
 Field::Field()
 {
-    Obstacle* bufr = new BufferObstacle();
-    this->obstacles.push_back(bufr);
+    std::unique_ptr<Obstacle> bufr = std::make_unique<BufferObstacle>();
+    this->obstacles.push_back(std::move(bufr));
 }
 
 void Field::move(float dt)
 {
-    for (Obstacle* ob : this->obstacles)
+    for (std::unique_ptr<Obstacle>& ob : this->obstacles)
     {
         ob->move(dt);
     }
@@ -23,43 +23,40 @@ void Field::move(float dt)
 
 void Field::removeObstacles()
 {
-    for (auto back = this->obstacles.end() - 1; (*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX; --back)
+    while ( this->obstacles.back()->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX)
     {
-        if ((*back)->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX)
-        {
-            this->obstacles.pop_back();
-        }
+        this->obstacles.pop_back();
     }
 }
 
 void Field::generateObstacle() 
 {   
     int obstacleNum = Field::randomObstacleDist(Field::generator);
-    Obstacle* newObstacle;
+    std::unique_ptr<Obstacle> newObstacle;
     switch(obstacleNum)
     {
         case 1:
-            newObstacle = new Obstacle1();
+            newObstacle = std::make_unique<Obstacle1>();
             break;
         case 2:
-            newObstacle = new Obstacle2();
+            newObstacle = std::make_unique<Obstacle2>();
             break;
         case 3:
-            newObstacle = new Obstacle3();
+            newObstacle = std::make_unique<Obstacle3>();
             break;
         case 4:
-            newObstacle = new Obstacle4();
+            newObstacle = std::make_unique<Obstacle4>();
             break;
         case 5:
-            newObstacle = new Obstacle5();
+            newObstacle = std::make_unique<Obstacle5>();
             break;
     }
-    this->obstacles.push_back(newObstacle);
+    this->obstacles.push_back(std::move(newObstacle));
 }
 
 void Field::draw(sf::RenderWindow& w)
 {
-    for (Obstacle* obs: this->obstacles)
+    for (std::unique_ptr<Obstacle>& obs: this->obstacles)
     {
         obs->draw(w);
     }
