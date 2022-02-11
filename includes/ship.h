@@ -29,11 +29,11 @@ class Ship
 
         bool collides(const sf::Vector2f& pixelPos) const;
 
-        void trackMouse(float deg);
+        void rotateShip(float rad);
 
         void move(float dx);
 
-        void setVelocity(float vel, float angle);
+        void setVelocityVector(float vel, float angle);
 
         float getAngle() const;
 

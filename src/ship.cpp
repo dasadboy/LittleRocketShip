@@ -4,8 +4,8 @@
 #define FULL_CIRCLE 6.2831853 // 2 * PI
 #define HALF_CIRCLE PI
 #define CCW90 1.57079632f // .5 * PI
-#define radToDegrees(rad) rad * 180.f / (PI)
-#define degreesToRad(deg) deg * (PI) / 180.f
+#define radToDegrees(rad) ( rad ) * 180.f / (PI)
+#define degreesToRad(deg) ( deg ) * (PI) / 180.f
 
 sf::Texture Ship::texture;
 
@@ -31,9 +31,9 @@ bool Ship::collides(const sf::Vector2f& pixelPos) const
     return this->radius < std::sqrt(dx * dx + dy * dy);
 }
 
-void Ship::trackMouse(float rad)
+void Ship::rotateShip(float rad)
 {
-    shipSprite.setRotation(( radToDegrees(( rad + CCW90 )) ));
+    shipSprite.setRotation(( radToDegrees( rad + CCW90 ) ));
 }
 
 void Ship::move(float dt)
@@ -56,7 +56,7 @@ void Ship::move(float dt)
     this->shipSprite.setPosition( this->pos );
 }
 
-void Ship::setVelocity(float vel, float angle)
+void Ship::setVelocityVector(float vel, float angle)
 {
     this->velocity = vel;
     this->angle = angle;
