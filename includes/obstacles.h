@@ -61,7 +61,7 @@ public:
 
         if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
         {        
-            throw "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
+            std::cout << "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
             return STATUS_CODES::FILE_NOT_FOUND;
         }
 

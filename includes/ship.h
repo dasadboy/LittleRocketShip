@@ -20,7 +20,7 @@ class Ship
         static int loadTexture() {
             if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
             {
-                throw "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
+                std::cout << "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
                 return STATUS_CODES::FILE_NOT_FOUND;
             }
             Ship::texture.setSmooth(true);
