@@ -18,11 +18,11 @@ void Field::move(float dt)
     {
         ob->move(dt);
     }
-    sort(this->obstacles.begin(), this->obstacles.end(), ObstacleCompare());
 }
 
 void Field::removeObstacles()
 {
+    sort(this->obstacles.begin(), this->obstacles.end(), ObstacleCompare());
     while ( this->obstacles.back()->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX)
     {
         this->obstacles.pop_back();

@@ -65,8 +65,6 @@ namespace SHIP_CONSTS
 
     const float SHIP_RADIUS_PX = 25.f;
 
-    // const float INITIAL_X_VELOCITY_PX = 0;
-
     const float MAXIMUM_VELOCITY_PX_PER_S = 140.f;
 
     const unsigned int INITIAL_HEALTH = 100;

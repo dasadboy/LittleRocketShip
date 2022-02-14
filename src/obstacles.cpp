@@ -7,7 +7,7 @@ std::uniform_int_distribution<int> Obstacle::speedUDist (OBSTACLE_CONSTS::MINIMU
 std::uniform_real_distribution<float> Obstacle::scaleUDist (OBSTACLE_CONSTS::MIN_SPRITE_SCALE, OBSTACLE_CONSTS::MAX_SPRITE_SCALE);
 std::uniform_real_distribution<float> Obstacle::xPosUDist (0, DISPLAY_CONSTS::WIDTH);
 
-#define findCentre(x) ( x ) * .5f
+#define FINDCENTRE(x) ( x ) * .5f
 
 Obstacle::Obstacle()
 {
@@ -15,7 +15,7 @@ Obstacle::Obstacle()
 
     this->sprite = sf::RectangleShape(OBSTACLE_CONSTS::MAX_RECT_DIMENSIONS);
     // this->sprite.setFillColor(sf::Color::White);
-    this->sprite.setOrigin(findCentre(this->sprite.getSize()));
+    this->sprite.setOrigin(( FINDCENTRE(this->sprite.getSize()) ));
 
     this->posX = this->xPosUDist(this->generator);
     this->posY = OBSTACLE_CONSTS::INITIAL_Y_POSITION;

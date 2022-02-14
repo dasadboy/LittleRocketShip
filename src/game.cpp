@@ -14,24 +14,24 @@ Game::Game()
 
 int Game::init()
 {
-    int returnCode = 0;
+    int returnCode = STATUS_CODES::SUCCESS;
     returnCode = Ship::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle1>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle2>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle3>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle4>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle5>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
     return returnCode;

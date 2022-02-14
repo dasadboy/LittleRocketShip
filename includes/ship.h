@@ -9,7 +9,7 @@ class Ship
         static sf::Texture texture;
         sf::CircleShape shipSprite;
         float velocity;
-        float angle;
+        float angleInRad;
         sf::Vector2f pos;
         float vel;
 
@@ -35,7 +35,7 @@ class Ship
 
         void setVelocityVector(float vel, float angle);
 
-        float getAngle() const;
+        float getAngleInRadians() const;
 
         sf::Vector2f getPosition() const;
 
