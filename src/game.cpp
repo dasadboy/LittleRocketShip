@@ -4,7 +4,7 @@ typedef std::mt19937 rng_t;
 
 std::random_device Game::ranDevice;
 rng_t Game::generator (Game::ranDevice());
-std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES); // uniform distribution
+std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES);
 
 Game::Game(sf::RenderWindow& window) : window(window)
 {
@@ -14,24 +14,24 @@ Game::Game(sf::RenderWindow& window) : window(window)
 
 int Game::loadTextures()
 {
-    int returnCode = 0;
+    int returnCode = STATUS_CODES::SUCCESS;
     returnCode = Ship::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle1>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle2>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle3>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle4>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     returnCode = ObstacleHolder<Obstacle5>::loadTexture();
-    if (returnCode != 0)
+    if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
     return returnCode;
 }
@@ -59,14 +59,14 @@ void Game::run()
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->ship.setVelocity(SHIP_CONSTS::THRUST_L1, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
+                this->ship.setVelocityVector(SHIP_CONSTS::THRUST_L1_PX_PER_S, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = false;
             }
             else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
-                this->ship.trackMouse(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
+                this->ship.rotateShip(std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = true;
             }
         }

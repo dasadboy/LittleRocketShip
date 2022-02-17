@@ -9,7 +9,7 @@ class Ship
         static sf::Texture texture;
         sf::CircleShape shipSprite;
         float velocity;
-        float angle;
+        float angleInRad;
         sf::Vector2f pos;
         float vel;
 
@@ -20,22 +20,22 @@ class Ship
         static int loadTexture() {
             if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
             {
-                throw "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
-                return ERROR_CODES::FILE_NOT_FOUND;
+                std::cout << "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
+                return STATUS_CODES::FILE_NOT_FOUND;
             }
             Ship::texture.setSmooth(true);
             return 0;
         }
 
-        bool collides(sf::Vector2f& pixelPos) const;
+        bool collides(const sf::Vector2f& pixelPos) const;
 
-        void trackMouse(float deg);
+        void rotateShip(float rad);
 
         void move(float dx);
 
-        void setVelocity(float vel, float angle);
+        void setVelocityVector(float vel, float angle);
 
-        float getAngle() const;
+        float getAngleInRadians() const;
 
         sf::Vector2f getPosition() const;
 

@@ -26,6 +26,8 @@ public:
 
     virtual void draw(sf::RenderWindow& window);
 
+    virtual ~Obstacle() {}
+
 };
 
 class BufferObstacle : public Obstacle
@@ -56,13 +58,11 @@ public:
     static int loadTexture()
     {
         sf::Image textureImage;
-        sf::Texture& texture = getTexture();
-        auto& outerPixels = getOuterPixels();
 
         if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
         {        
-            throw "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
-            return ERROR_CODES::FILE_NOT_FOUND;
+            std::cout << "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
+            return STATUS_CODES::FILE_NOT_FOUND;
         }
 
         // getting edges
@@ -78,15 +78,16 @@ public:
                     textureImage.getPixel(x - 1, y) == emptyPixel &&
                     textureImage.getPixel(x, y - 1) == emptyPixel)
                 {
-                    float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN;
-                    outerPixels.emplace_back(relx, rely);
+                    float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX;
+                    ObstacleHolder<T>::outerPixels.emplace_back(relx, rely);
                 }
             }
-            sort(outerPixels.begin(), outerPixels.end());
         }
+        
+        sort(ObstacleHolder<T>::outerPixels.begin(), ObstacleHolder<T>::outerPixels.end());
 
-        texture.loadFromImage(textureImage);
-        texture.setSmooth(true);
+        ObstacleHolder<T>::texture.loadFromImage(textureImage);
+        ObstacleHolder<T>::texture.setSmooth(true);
         return 0;
     }
 
@@ -135,12 +136,4 @@ class Obstacle5 : public ObstacleHolder<Obstacle5>
 public:
     Obstacle5() : ObstacleHolder() {}
 
-};
-
-struct ObstacleCompare
-{
-    bool operator()(Obstacle* a, Obstacle* b)
-    {
-        return a->getYPosition() < b->getYPosition();
-    }
 };

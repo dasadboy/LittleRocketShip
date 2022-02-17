@@ -5,11 +5,24 @@
 
 typedef std::mt19937 rng_t;
 
+struct ObstacleCompare
+{
+    bool operator()(Obstacle* a, Obstacle* b)
+    {
+        return a->getYPosition() < b->getYPosition();
+    }
+
+    bool operator()(std::unique_ptr<Obstacle>& a, std::unique_ptr<Obstacle>& b)
+    {
+        return a->getYPosition() < b->getYPosition();
+    }
+};
+
 class Field
 {
     private:
         int currY;
-        std::vector<Obstacle*> obstacles; // int used as placeholder
+        std::vector<std::unique_ptr<Obstacle>> obstacles;
         static std::random_device ranDevice;
         static rng_t generator;
         static std::uniform_int_distribution<int> randomObstacleDist;
