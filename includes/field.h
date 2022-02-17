@@ -1,27 +1,41 @@
+#pragma once
 // #include "common_external_includes.h"
 // #include "constants.h"
-#include "ship.h"
+#include "obstacles.h"
 
 typedef std::mt19937 rng_t;
+
+struct ObstacleCompare
+{
+    bool operator()(Obstacle* a, Obstacle* b)
+    {
+        return a->getYPosition() < b->getYPosition();
+    }
+
+    bool operator()(std::unique_ptr<Obstacle>& a, std::unique_ptr<Obstacle>& b)
+    {
+        return a->getYPosition() < b->getYPosition();
+    }
+};
 
 class Field
 {
     private:
-        int currY; 
-        std::deque<int> obstacles; // int used as placeholder
-        rng_t generator;
-        std::uniform_int_distribution<int> udist;
-        int distanceToFurthestObstacle;
+        int currY;
+        std::vector<std::unique_ptr<Obstacle>> obstacles;
+        static std::random_device ranDevice;
+        static rng_t generator;
+        static std::uniform_int_distribution<int> randomObstacleDist;
 
     public:
 
         Field();
 
-        void move(float dy);
+        void move(float dt);
 
-        int generateObstacle();
+        void generateObstacle();
 
-        void fillObstacles();
+        void removeObstacles();
 
         void draw(sf::RenderWindow& w);
 

@@ -2,34 +2,62 @@
 
 typedef std::mt19937 rng_t;
 
+std::random_device Field::ranDevice;
+rng_t Field::generator (Field::ranDevice());
+std::uniform_int_distribution<int> Field::randomObstacleDist(FIELD_CONSTS::OBSTACLE_NUMBERS_LOWER, FIELD_CONSTS::OBSTACLE_NUMBERS_UPPER);
+
 Field::Field()
 {
-    this->currY = 0;
-    this->distanceToFurthestObstacle = 0;
-    std::random_device ranDevice; // init random device
-    this->generator.seed(ranDevice()); // spawn generator with seed from ranDevice
-    this->udist = std::uniform_int_distribution<int>(0, FIELD_CONSTS::MAX_DIST_BETWEEN_OBSTACLES); // uniform distribution
-    
+    std::unique_ptr<Obstacle> bufr = std::make_unique<BufferObstacle>();
+    this->obstacles.push_back(std::move(bufr));
 }
 
-void Field::move(float dy) {};
-
-int Field::generateObstacle() 
+void Field::move(float dt)
 {
-    return this->distanceToFurthestObstacle + this->udist(generator);
-}
-
-void Field::fillObstacles()
-{
-    int obstaclesToGenerate = FIELD_CONSTS::MAX_OBSTACLES;
-    while (--obstaclesToGenerate)
+    for (std::unique_ptr<Obstacle>& ob : this->obstacles)
     {
-        this->distanceToFurthestObstacle = generateObstacle();
-        this->obstacles.push_front(this->distanceToFurthestObstacle);
+        ob->move(dt);
     }
 }
 
-void Field::draw(sf::RenderWindow& window)
+void Field::removeObstacles()
 {
-    // TODO: implement draw
+    sort(this->obstacles.begin(), this->obstacles.end(), ObstacleCompare());
+    while ( this->obstacles.back()->getYPosition() > FIELD_CONSTS::OBSTACLE_DELETION_CUTOFF_PX)
+    {
+        this->obstacles.pop_back();
+    }
+}
+
+void Field::generateObstacle() 
+{   
+    int obstacleNum = Field::randomObstacleDist(Field::generator);
+    std::unique_ptr<Obstacle> newObstacle;
+    switch(obstacleNum)
+    {
+        case 1:
+            newObstacle = std::make_unique<Obstacle1>();
+            break;
+        case 2:
+            newObstacle = std::make_unique<Obstacle2>();
+            break;
+        case 3:
+            newObstacle = std::make_unique<Obstacle3>();
+            break;
+        case 4:
+            newObstacle = std::make_unique<Obstacle4>();
+            break;
+        case 5:
+            newObstacle = std::make_unique<Obstacle5>();
+            break;
+    }
+    this->obstacles.push_back(std::move(newObstacle));
+}
+
+void Field::draw(sf::RenderWindow& w)
+{
+    for (std::unique_ptr<Obstacle>& obs: this->obstacles)
+    {
+        obs->draw(w);
+    }
 }
