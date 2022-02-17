@@ -1,5 +1,7 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 // includes common to all files
 #include <iostream>
 #include "SFML/Graphics.hpp"

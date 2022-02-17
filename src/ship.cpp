@@ -1,11 +1,10 @@
 #include "ship.h"
 
-#define PI 3.14159265f
-#define FULL_CIRCLE 6.2831853 // 2 * PI
-#define HALF_CIRCLE PI
-#define CCW90 1.57079632f // .5 * PI
-#define RADTODEGREES(rad) ( rad ) * 180.f / (PI)
-#define DEGREESTORAD(deg) ( deg ) * (PI) / 180.f
+#define FULL_CIRCLE ( 2 * M_PI )
+#define HALF_CIRCLE ( M_PI )
+#define CCW90 ( .5 * M_PI )
+#define RADTODEGREES(rad) ( ( rad ) * 180.f / ( M_PI ) )
+#define DEGREESTORAD(deg) ( ( deg ) * ( M_PI ) / 180.f )
 
 sf::Texture Ship::texture;
 

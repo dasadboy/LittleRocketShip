@@ -77,7 +77,7 @@ namespace SHIP_CONSTS
 
     const float INITIAL_VELOCITY_PS_PER_S = 0.f;
 
-    const float INITIAL_ANGLE_RAD = 1.57079632f;
+    const float INITIAL_ANGLE_RAD = M_PI_2;
 
     const float LEFT_BOUND = SHIP_CONSTS::SHIP_RADIUS_PX;
 
