@@ -20,6 +20,8 @@ namespace STATE_CONSTS
     const int PAUSE_MENU = 2;
 
     const int RESTART = 3;
+
+    const int GAME_OVER = 4;
     
 }
 

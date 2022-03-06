@@ -53,7 +53,10 @@ int Game::run()
         {
             for (const sf::Vector2f& p: obstacle->getOuterPixels())
             {
-                this->ship.collides(p);
+                if (this->ship.collides(p))
+                {
+                    return STATE_CONSTS::GAME_OVER;
+                }
             }
         }
         sf::Event event;
