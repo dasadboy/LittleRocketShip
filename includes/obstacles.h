@@ -26,6 +26,8 @@ public:
 
     virtual void draw(sf::RenderWindow& window);
 
+    virtual const std::vector<sf::Vector2f>& getOuterPixels() = 0;
+
     virtual ~Obstacle() {}
 
 };
@@ -46,7 +48,7 @@ class ObstacleHolder : public Obstacle
 {
 protected:
     static std::string textureFilename;
-    static std::vector<std::pair<float, float>> outerPixels;
+    static std::vector<sf::Vector2f> outerPixels;
     static sf::Texture texture;
 public:
 
@@ -93,12 +95,12 @@ public:
 
     static sf::Texture& getTexture()
     {
-        return texture;
+        return ObstacleHolder<T>::texture;
     }
 
-    static std::vector<std::pair<float, float>>& getOuterPixels()
+    static const std::vector<sf::Vector2f>& getOuterPixels()
     {
-        return outerPixels;
+        return ObstacleHolder<T>::outerPixels;
     }
 
 };

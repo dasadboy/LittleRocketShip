@@ -36,8 +36,9 @@ int Game::loadTextures()
     return returnCode;
 }
 
-void Game::run()
+int Game::run()
 {
+    this->deltat.restart();
     while (this->window.isOpen())
     {
         moveShip();
@@ -48,6 +49,13 @@ void Game::run()
             this->obstacleGenerationTimer.restart();
             this->obstacleGenerationTimeCutoff = Game::timeDist(Game::generator);
         }
+        for (const std::unique_ptr<Obstacle>& obstacle: this->field.getObstacles())
+        {
+            for (const sf::Vector2f& p: obstacle->getOuterPixels())
+            {
+                this->ship.collides(p);
+            }
+        }
         sf::Event event;
         while (this->window.pollEvent(event))
         {
@@ -55,14 +63,18 @@ void Game::run()
             {
                 terminate();
             }
-            else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+            else if ((event.type == sf::Event::KeyPressed) && (event.key.code = sf::Keyboard::Escape))
+            {
+                return STATE_CONSTS::PAUSE_MENU;
+            }
+            else if ((event.type == sf::Event::MouseButtonReleased) && (event.mouseButton.button == sf::Mouse::Left))
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
                 this->ship.setVelocityVector(SHIP_CONSTS::THRUST_L1_PX_PER_S, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = false;
             }
-            else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)
+            else if (((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Left)) || this->LMBHeldDown == true)
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
@@ -75,6 +87,7 @@ void Game::run()
         drawScreen();
         this->window.display();
     }
+    return -1;
 }
 
 void Game::moveShip() 
@@ -94,4 +107,16 @@ void Game::drawScreen()
 {
     this->ship.draw(this->window);
     this->field.draw(this->window);
+}
+
+void Game::reset()
+{
+    this->LMBHeldDown = false;
+    this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
+
+    this->field.reset();
+    this->ship.reset();
+
+    this->deltat.restart();
+    this->obstacleGenerationTimer.restart();
 }

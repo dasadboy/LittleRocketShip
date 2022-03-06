@@ -11,7 +11,6 @@ class Ship
         float velocity;
         float angleInRad;
         sf::Vector2f pos;
-        float vel;
 
     public:
 
@@ -38,6 +37,8 @@ class Ship
         float getAngleInRadians() const;
 
         sf::Vector2f getPosition() const;
+
+        void reset();
 
         void draw(sf::RenderWindow& window);
 

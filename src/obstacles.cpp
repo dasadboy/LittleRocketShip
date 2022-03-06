@@ -41,34 +41,34 @@ template <> std::string ObstacleHolder<BufferObstacle>::textureFilename = "";
 
 template <> sf::Texture ObstacleHolder<BufferObstacle>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<BufferObstacle>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<BufferObstacle>::outerPixels = {};
 
 template <> std::string ObstacleHolder<Obstacle1>::textureFilename = "resources/obstacles/obstacle1.png";
 
 template <> sf::Texture ObstacleHolder<Obstacle1>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<Obstacle1>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<Obstacle1>::outerPixels = {};
 
 template <> std::string ObstacleHolder<Obstacle2>::textureFilename = "resources/obstacles/obstacle2.png";
 
 template <> sf::Texture ObstacleHolder<Obstacle2>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<Obstacle2>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<Obstacle2>::outerPixels = {};
 
 template <> std::string ObstacleHolder<Obstacle3>::textureFilename = "resources/obstacles/obstacle3.png";
 
 template <> sf::Texture ObstacleHolder<Obstacle3>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<Obstacle3>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<Obstacle3>::outerPixels = {};
 
 template <> std::string ObstacleHolder<Obstacle4>::textureFilename = "resources/obstacles/obstacle4.png";
 
 template <> sf::Texture ObstacleHolder<Obstacle4>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<Obstacle4>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<Obstacle4>::outerPixels = {};
 
 template <> std::string ObstacleHolder<Obstacle5>::textureFilename = "resources/obstacles/obstacle5.png";
 
 template <> sf::Texture ObstacleHolder<Obstacle5>::texture = sf::Texture();
 
-template <> std::vector<std::pair<float, float>> ObstacleHolder<Obstacle5>::outerPixels = {};
+template <> std::vector<sf::Vector2f> ObstacleHolder<Obstacle5>::outerPixels = {};

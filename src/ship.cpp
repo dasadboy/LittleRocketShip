@@ -71,6 +71,16 @@ sf::Vector2f Ship::getPosition() const
     return this->shipSprite.getPosition();
 }
 
+void Ship::reset()
+{
+    this->radius = SHIP_CONSTS::SHIP_RADIUS_PX;
+    this->health = SHIP_CONSTS::INITIAL_HEALTH;
+    this->angleInRad = SHIP_CONSTS::INITIAL_ANGLE_RAD;
+    this->velocity = SHIP_CONSTS::INITIAL_VELOCITY_PS_PER_S;
+    this->pos = SHIP_CONSTS::INITIAL_POSITION;
+    this->shipSprite.setPosition(SHIP_CONSTS::INITIAL_POSITION);
+}
+
 void Ship::draw(sf::RenderWindow& window)
 {
     window.draw(shipSprite);

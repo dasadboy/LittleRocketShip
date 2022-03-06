@@ -21,6 +21,7 @@ struct ObstacleCompare
 class Field
 {
     private:
+    
         int currY;
         std::vector<std::unique_ptr<Obstacle>> obstacles;
         static std::random_device ranDevice;
@@ -36,6 +37,13 @@ class Field
         void generateObstacle();
 
         void removeObstacles();
+
+        const std::vector<std::unique_ptr<Obstacle>>& getObstacles()
+        {
+            return obstacles;
+        }
+
+        void reset();
 
         void draw(sf::RenderWindow& w);
 

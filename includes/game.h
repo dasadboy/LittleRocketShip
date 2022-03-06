@@ -25,7 +25,7 @@ class Game
 
         static int loadTextures();
 
-        void run();
+        int run();
 
         void moveShip();
 
@@ -34,5 +34,7 @@ class Game
         void drawScreen();
 
         void move(sf::Vector2i& mousePos);
+
+        void reset();
 
 };

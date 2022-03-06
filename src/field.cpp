@@ -10,6 +10,7 @@ Field::Field()
 {
     std::unique_ptr<Obstacle> bufr = std::make_unique<BufferObstacle>();
     this->obstacles.push_back(std::move(bufr));
+    this->currY = 0;
 }
 
 void Field::move(float dt)
@@ -52,6 +53,14 @@ void Field::generateObstacle()
             break;
     }
     this->obstacles.push_back(std::move(newObstacle));
+}
+
+void Field::reset()
+{
+    this->currY = 0;
+    this->obstacles.clear();
+    std::unique_ptr<Obstacle> bufr = std::make_unique<BufferObstacle>();
+    this->obstacles.push_back(std::move(bufr));
 }
 
 void Field::draw(sf::RenderWindow& w)

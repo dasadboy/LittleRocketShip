@@ -10,6 +10,19 @@ namespace DISPLAY_CONSTS
 
 }
 
+namespace STATE_CONSTS
+{
+
+    const int PREGAME_MENU = 0;
+    
+    const int GAME = 1;
+
+    const int PAUSE_MENU = 2;
+
+    const int RESTART = 3;
+    
+}
+
 namespace GAME_CONSTS 
 {
     
@@ -89,8 +102,44 @@ namespace SHIP_CONSTS
 
 }
 
+namespace BUTTON_CONSTS
+{
+
+    const sf::Vector2f SIZE = {400.f, 150.f};
+
+    const sf::IntRect TEXTURE_RECT = {0, 0, 400, 150};
+
+}
+
+namespace PREGAME_MENU_BUTTON_CONSTS
+{
+
+    const std::string PLAY_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/playbutton.png";
+
+    const sf::Vector2f PLAY_BUTTON_POSITION = {( DISPLAY_CONSTS::WIDTH - BUTTON_CONSTS::SIZE.x ) / 2, ( DISPLAY_CONSTS::HEIGHT - BUTTON_CONSTS::SIZE.y ) / 2};
+
+}
+
+namespace PAUSE_MENU_BUTTON_CONSTS
+{
+
+    const std::string RESUME_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/resumebutton.png";
+
+    const sf::Vector2f RESUME_BUTTON_POSITION = { DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+    
+    const std::string RESTART_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/restartbutton.png";
+
+    const sf::Vector2f RESTART_BUTTON_POSITION = { 2 * DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  2 * DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+    
+    const std::string QUIT_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/quitbutton.png";
+
+    const sf::Vector2f QUIT_BUTTON_POSITION = { 3 * DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  3 * DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+
+}
+
 namespace STATUS_CODES
 {
+
     const int SUCCESS = 0;
 
     const int FILE_NOT_FOUND = -1;
