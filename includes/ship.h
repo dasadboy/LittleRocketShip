@@ -36,7 +36,7 @@ class Ship
 
         float getAngleInRadians() const;
 
-        sf::Vector2f getPosition() const;
+        const sf::Vector2f getPosition() const;
 
         void reset();
 

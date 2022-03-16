@@ -9,12 +9,12 @@ struct ObstacleCompare
 {
     bool operator()(Obstacle* a, Obstacle* b)
     {
-        return a->getYPosition() < b->getYPosition();
+        return a->getPosition().y < b->getPosition().y;
     }
 
     bool operator()(std::unique_ptr<Obstacle>& a, std::unique_ptr<Obstacle>& b)
     {
-        return a->getYPosition() < b->getYPosition();
+        return a->getPosition().y < b->getPosition().y;
     }
 };
 

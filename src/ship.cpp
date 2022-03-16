@@ -27,7 +27,8 @@ bool Ship::collides(const sf::Vector2f& pixelPos) const
 {
     auto [x, y] = this->shipSprite.getPosition();
     float dx = pixelPos.x - x, dy = pixelPos.y - y;
-    return this->radius < std::sqrt(dx * dx + dy * dy);
+    float dist = std::sqrt(dx * dx + dy * dy);
+    return this->radius > dist;
 }
 
 void Ship::rotateShip(float rad)
@@ -66,9 +67,9 @@ float Ship::getAngleInRadians() const
     return ( DEGREESTORAD( this->shipSprite.getRotation() ) );
 }
 
-sf::Vector2f Ship::getPosition() const 
+const sf::Vector2f Ship::getPosition() const 
 {
-    return this->shipSprite.getPosition();
+    return this->pos;
 }
 
 void Ship::reset()

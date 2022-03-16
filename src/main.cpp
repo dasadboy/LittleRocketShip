@@ -30,6 +30,8 @@ int main ()
                 game.reset();
                 state = STATE_CONSTS::GAME;
                 break;
+            case STATE_CONSTS::GAME_OVER:
+                window.close();
         }
     }
     return STATUS_CODES::SUCCESS;

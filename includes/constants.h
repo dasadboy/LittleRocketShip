@@ -61,9 +61,9 @@ namespace OBSTACLE_CONSTS
 
     const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400.f, 400.f);
 
-    const float MIN_SPRITE_SCALE = 0.5;
+    const float MIN_SPRITE_SCALE = .25;
 
-    const float MAX_SPRITE_SCALE = 1;
+    const float MAX_SPRITE_SCALE = .5;
 
     const sf::Vector2f MAX_RECT_DIMENSIONS = {200.f, 200.f};
 

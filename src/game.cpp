@@ -38,7 +38,7 @@ int Game::loadTextures()
 
 int Game::run()
 {
-    this->deltat.restart();
+    this->deltat.restart();;
     while (this->window.isOpen())
     {
         moveShip();
@@ -51,9 +51,11 @@ int Game::run()
         }
         for (const std::unique_ptr<Obstacle>& obstacle: this->field.getObstacles())
         {
+            sf::Vector2f pos = obstacle->getPosition();
             for (const sf::Vector2f& p: obstacle->getOuterPixels())
             {
-                if (this->ship.collides(p))
+                bool g = this->ship.collides(p + pos);
+                if (g)
                 {
                     return STATE_CONSTS::GAME_OVER;
                 }
