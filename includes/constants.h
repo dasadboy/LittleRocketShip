@@ -94,6 +94,8 @@ namespace SHIP_CONSTS
 
     const float INITIAL_ANGLE_RAD = M_PI_2;
 
+    const float SPRITE_INITIAL_ANGLE_RAD = 0.f;
+
     const float LEFT_BOUND = SHIP_CONSTS::SHIP_RADIUS_PX;
 
     const float RIGHT_BOUND = DISPLAY_CONSTS::WIDTH - SHIP_CONSTS::SHIP_RADIUS_PX;
@@ -136,6 +138,25 @@ namespace PAUSE_MENU_BUTTON_CONSTS
     const std::string QUIT_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/quitbutton.png";
 
     const sf::Vector2f QUIT_BUTTON_POSITION = { 3 * DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  3 * DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+
+}
+
+namespace GAME_OVER_SCREEN_CONSTS
+{
+
+    const std::string MSG = "Game Over";
+
+    const std::string FONT_FILE_PATH = "resources/RobotoMono-Bold.ttf";
+
+	const int GAME_OVER_TEXT_SIZE = 48;
+
+	const int GAME_OVER_TEXT_VERTICAL_OFFSET = 256;
+
+	const int SCORE_TEXT_SIZE = 28;
+
+	const int SCORE_TEXT_VERTICAL_OFFSET = 348;
+
+	const int HORIZONTAL_OFFSET = 120;
 
 }
 

@@ -1,6 +1,7 @@
 // #include "common_external_includes.h"
 #include "game.h"
 #include "menu.h"
+#include "gameover.h"
 
 int main ()
 {
@@ -12,12 +13,15 @@ int main ()
     Game game(window);
     PreGameMenu pregameMenu(window);
     PauseMenu pauseMenu(window);
+    GameOver gameOverDisplay(window);
+
     int state;
     while (window.isOpen())
     {
         switch (state)
         {
             case STATE_CONSTS::PREGAME_MENU:
+                game.reset();
                 state = pregameMenu.run();
                 break;
             case STATE_CONSTS::GAME:
@@ -31,7 +35,9 @@ int main ()
                 state = STATE_CONSTS::GAME;
                 break;
             case STATE_CONSTS::GAME_OVER:
-                window.close();
+                gameOverDisplay.generateText();
+                state = gameOverDisplay.run();
+                break;
         }
     }
     return STATUS_CODES::SUCCESS;
