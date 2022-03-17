@@ -35,7 +35,7 @@ int main ()
                 state = STATE_CONSTS::GAME;
                 break;
             case STATE_CONSTS::GAME_OVER:
-                gameOverDisplay.generateText();
+                gameOverDisplay.generateText(game.getScore());
                 state = gameOverDisplay.run();
                 break;
         }

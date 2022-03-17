@@ -6,10 +6,13 @@ std::random_device Game::ranDevice;
 rng_t Game::generator (Game::ranDevice());
 std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES);
 
+#define calculatePartialScore(time) ( ( time ) / 10 ) * 10
+
 Game::Game(sf::RenderWindow& window) : window(window)
 {
     this->LMBHeldDown = false;
     this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
+    this->score = 0;
 }
 
 int Game::loadTextures()
@@ -38,7 +41,8 @@ int Game::loadTextures()
 
 int Game::run()
 {
-    this->deltat.restart();;
+    this->deltat.restart();
+    this->scoreTimer.restart();
     while (this->window.isOpen())
     {
         moveShip();
@@ -54,9 +58,10 @@ int Game::run()
             sf::Vector2f pos = obstacle->getPosition();
             for (const sf::Vector2f& p: obstacle->getOuterPixels())
             {
-                bool g = this->ship.collides(p + pos);
-                if (g)
+                
+                if (this->ship.collides(p + pos))
                 {
+                    this->score += calculatePartialScore( this->scoreTimer.getElapsedTime().asMilliseconds() );
                     return STATE_CONSTS::GAME_OVER;
                 }
             }
@@ -70,6 +75,7 @@ int Game::run()
             }
             else if ((event.type == sf::Event::KeyPressed) && (event.key.code = sf::Keyboard::Escape))
             {
+                this->score += calculatePartialScore( this->scoreTimer.getElapsedTime().asMilliseconds() );
                 return STATE_CONSTS::PAUSE_MENU;
             }
             else if ((event.type == sf::Event::MouseButtonReleased) && (event.mouseButton.button == sf::Mouse::Left))

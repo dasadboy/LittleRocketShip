@@ -19,7 +19,7 @@ public:
 
     int run();
 
-    int generateText();
+    int generateText(int score);
 
     void draw();
 

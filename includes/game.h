@@ -18,6 +18,8 @@ class Game
         static std::uniform_real_distribution<float> timeDist;
         sf::Clock obstacleGenerationTimer;
         int obstacleGenerationTimeCutoff;
+        sf::Clock scoreTimer;
+        int score;
 
     public:
 
@@ -36,5 +38,10 @@ class Game
         void move(sf::Vector2i& mousePos);
 
         void reset();
+
+        int getScore()
+        {
+            return this->score;
+        }
 
 };

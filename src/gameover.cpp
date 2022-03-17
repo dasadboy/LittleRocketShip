@@ -3,7 +3,7 @@
 GameOver::GameOver(sf::RenderWindow& window) : window(window)
 {}
 
-int GameOver::generateText()
+int GameOver::generateText(int score)
 {
     if (!this->font.loadFromFile(GAME_OVER_SCREEN_CONSTS::FONT_FILE_PATH))
     {
@@ -17,8 +17,8 @@ int GameOver::generateText()
 
     this->scoreText.setFont(this->font);
     this->scoreText.setCharacterSize(GAME_OVER_SCREEN_CONSTS::SCORE_TEXT_SIZE);
-    this->scoreText.setString("0");
-    this->gameOverText.setPosition(GAME_OVER_SCREEN_CONSTS::HORIZONTAL_OFFSET, GAME_OVER_SCREEN_CONSTS::SCORE_TEXT_SIZE);
+    this->scoreText.setString(std::to_string(score));
+    this->scoreText.setPosition(GAME_OVER_SCREEN_CONSTS::HORIZONTAL_OFFSET, GAME_OVER_SCREEN_CONSTS::SCORE_TEXT_VERTICAL_OFFSET);
     return STATUS_CODES::SUCCESS;
 }
 
