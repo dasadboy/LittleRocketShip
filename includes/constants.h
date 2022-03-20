@@ -1,6 +1,8 @@
 #pragma once
 #include "common_external_includes.h"
 
+enum STATE_CONSTS { PREGAME_MENU, GAME, PAUSE_MENU, RESTART, GAME_OVER };
+
 namespace DISPLAY_CONSTS 
 {
 
@@ -10,25 +12,10 @@ namespace DISPLAY_CONSTS
 
 }
 
-namespace STATE_CONSTS
-{
-
-    const int PREGAME_MENU = 0;
-    
-    const int GAME = 1;
-
-    const int PAUSE_MENU = 2;
-
-    const int RESTART = 3;
-
-    const int GAME_OVER = 4;
-    
-}
-
 namespace GAME_CONSTS 
 {
     
-    const sf::Vector2f INITIAL_VELOCITY = {0, 0};
+    const sf::Vector2f INITIAL_VELOCITY = {0.f, 0.f};
 
     const std::string WINDOW_NAME = "FeelsRocketMan";
 
@@ -43,7 +30,7 @@ namespace FIELD_CONSTS
 
     const size_t MAX_OBSTACLES = 50;
 
-    const float OBSTACLE_DELETION_CUTOFF_PX = 1120;
+    const float OBSTACLE_DELETION_CUTOFF_PX = 1120.f;
 
     const int OBSTACLE_NUMBERS_LOWER = 1;
 
@@ -61,15 +48,15 @@ namespace OBSTACLE_CONSTS
 
     const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400.f, 400.f);
 
-    const float MIN_SPRITE_SCALE = .25;
+    const float MIN_SPRITE_SCALE = .25f;
 
-    const float MAX_SPRITE_SCALE = .5;
+    const float MAX_SPRITE_SCALE = .5f;
 
     const sf::Vector2f MAX_RECT_DIMENSIONS = {200.f, 200.f};
 
-    const float TEXTURE_ORIGIN_PX = 200;
+    const float TEXTURE_ORIGIN_PX = 200.f;
 
-    const float BUFFER_Y_POSITION_PX = -1000;
+    const float BUFFER_Y_POSITION_PX = -1000.f;
 
 }
 
