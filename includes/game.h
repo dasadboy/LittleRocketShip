@@ -39,7 +39,7 @@ class Game
 
         void reset();
 
-        int getScore()
+        int getScore() const
         {
             return this->score;
         }

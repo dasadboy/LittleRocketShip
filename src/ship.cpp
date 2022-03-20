@@ -23,6 +23,17 @@ Ship::Ship() {
     this->shipSprite.setTextureRect(SHIP_CONSTS::TEXTURE_RECT);
 }
 
+int Ship::loadTexture() 
+{
+    if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
+    {
+        std::cout << "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
+        return STATUS_CODES::FILE_NOT_FOUND;
+    }
+    Ship::texture.setSmooth(true);
+    return 0;
+}
+
 bool Ship::collides(const sf::Vector2f& pixelPos) const
 {
     auto [x, y] = this->shipSprite.getPosition();
@@ -54,22 +65,6 @@ void Ship::move(float dt)
     this->pos.x = std::min(std::max( newx , 2 * ( SHIP_CONSTS::LEFT_BOUND ) - newx ) , 2 * ( SHIP_CONSTS::RIGHT_BOUND ) - newx ); // x < 0 : 2 * (left_bound) - newx, 0 < x < 720 : newx, x > 720 : 2 * (right_bound) - newx
     this->pos.y = std::min(std::max( newy , 2 * ( SHIP_CONSTS::UPPER_BOUND ) - newy ) , 2 * ( SHIP_CONSTS::LOWER_BOUND ) - newy ); // y < 0 : 2 * (upper_bound) - newy, 0 < y < 720 : newy, y > 720 : 2 * (lower_bound) - newy
     this->shipSprite.setPosition( this->pos );
-}
-
-void Ship::setVelocityVector(float vel, float angle)
-{
-    this->velocity = vel;
-    this->angleInRad = angle;
-}
-
-float Ship::getAngleInRadians() const 
-{
-    return ( DEGREESTORAD( this->shipSprite.getRotation() ) );
-}
-
-const sf::Vector2f Ship::getPosition() const 
-{
-    return this->pos;
 }
 
 void Ship::reset()

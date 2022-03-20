@@ -4,6 +4,7 @@
 
 class Button
 {
+private:
     
     static const sf::Color activeColor;
     static const sf::Color inactiveColor;
