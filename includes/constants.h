@@ -46,7 +46,7 @@ namespace OBSTACLE_CONSTS
 
     const float MAXIMUM_SPEED_PX_PER_S = 160.0f;
 
-    const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400.f, 400.f);
+    const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400, 400);
 
     const float MIN_SPRITE_SCALE = .25f;
 
@@ -135,15 +135,15 @@ namespace GAME_OVER_SCREEN_CONSTS
 
     const std::string FONT_FILE_PATH = "resources/RobotoMono-Bold.ttf";
 
-	const int GAME_OVER_TEXT_SIZE = 48;
+    const int GAME_OVER_TEXT_SIZE = 48;
 
-	const int GAME_OVER_TEXT_VERTICAL_OFFSET = 256;
+    const int GAME_OVER_TEXT_VERTICAL_OFFSET = 256;
 
-	const int SCORE_TEXT_SIZE = 28;
+    const int SCORE_TEXT_SIZE = 28;
 
-	const int SCORE_TEXT_VERTICAL_OFFSET = 348;
+    const int SCORE_TEXT_VERTICAL_OFFSET = 348;
 
-	const int HORIZONTAL_OFFSET = 120;
+    const int HORIZONTAL_OFFSET = 120;
 
 }
 
