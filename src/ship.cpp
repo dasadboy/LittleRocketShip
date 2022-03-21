@@ -8,7 +8,8 @@
 
 sf::Texture Ship::texture;
 
-Ship::Ship() {
+Ship::Ship() 
+{
     this->radius = SHIP_CONSTS::SHIP_RADIUS_PX;
     this->health = SHIP_CONSTS::INITIAL_HEALTH;
     this->angleInRad = SHIP_CONSTS::INITIAL_ANGLE_RAD;

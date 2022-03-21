@@ -60,7 +60,42 @@ public:
         this->sprite.setTexture(&ObstacleHolder<T>::texture);
     }
 
-    static int loadTexture();
+    static int loadTexture()
+    {
+        sf::Image textureImage;
+
+        if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
+        {        
+            std::cerr << "Texture file " + ObstacleHolder<T>::textureFilename + " could not be loaded.";
+            return STATUS_CODES::FILE_NOT_FOUND;
+        }
+
+        // getting pixels at the edge of image
+        const sf::Color emptyPixel (0, 0, 0, 0); // transparent pixel
+        for (int x = 0, width = OBSTACLE_CONSTS::TEXTURE_RECT.width; x < width; ++x)
+        {
+            for (int y = 0, height = OBSTACLE_CONSTS::TEXTURE_RECT.height; y < height; ++y)
+            {
+                // non-empty pixel neighboring one or more empty pixels is on the edge
+                if (
+                    textureImage.getPixel(x, y).a != 0 && (
+                        textureImage.getPixel(x + 1, y).a == 0 ||
+                        textureImage.getPixel(x, y + 1).a == 0 ||
+                        textureImage.getPixel(x - 1, y).a == 0 ||
+                        textureImage.getPixel(x, y - 1).a == 0 )
+                )
+                {
+                    textureImage.setPixel(x, y, sf::Color(0, 255, 0, 255));
+                    float relx = (x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX) * OBSTACLE_CONSTS::MAX_SPRITE_SCALE, rely = (y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX) * OBSTACLE_CONSTS::MAX_SPRITE_SCALE;
+                    ObstacleHolder<T>::outerPixels.emplace_back(relx, rely);
+                }
+            }
+        }
+
+        ObstacleHolder<T>::texture.loadFromImage(textureImage);
+        ObstacleHolder<T>::texture.setSmooth(true);
+        return 0;
+    }
 
     static sf::Texture& getTexture()
     {

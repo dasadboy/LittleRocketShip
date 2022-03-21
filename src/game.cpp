@@ -98,7 +98,7 @@ int Game::run()
         drawScreen();
         this->window.display();
     }
-    return -1;
+    return STATE_CONSTS::CLOSED;
 }
 
 void Game::moveShip() 

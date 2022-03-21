@@ -13,7 +13,7 @@ int Button::loadTexture()
 {
     if(!this->buttonTexture.loadFromFile(this->textureFilename))
     {
-        std::cout << "Could not load " << this->textureFilename << ".\n";
+        std::cerr << "Could not load " << this->textureFilename << ".\n";
         return STATUS_CODES::FILE_NOT_FOUND;
     }
     this->buttonTexture.setSmooth(true);

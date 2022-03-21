@@ -42,7 +42,7 @@ int GameOver::run()
         this->draw();
         this->window.display();
     }
-    return 0;
+    return STATE_CONSTS::CLOSED;
 }
 
 void GameOver::draw()

@@ -1,7 +1,7 @@
 #pragma once
 #include "common_external_includes.h"
 
-enum STATE_CONSTS { PREGAME_MENU, GAME, PAUSE_MENU, RESTART, GAME_OVER };
+enum STATE_CONSTS { CLOSED = -1, PREGAME_MENU, GAME, PAUSE_MENU, RESTART, GAME_OVER };
 
 namespace DISPLAY_CONSTS 
 {
