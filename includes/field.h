@@ -9,18 +9,19 @@ struct ObstacleCompare
 {
     bool operator()(Obstacle* a, Obstacle* b)
     {
-        return a->getYPosition() < b->getYPosition();
+        return a->getPosition().y < b->getPosition().y;
     }
 
     bool operator()(std::unique_ptr<Obstacle>& a, std::unique_ptr<Obstacle>& b)
     {
-        return a->getYPosition() < b->getYPosition();
+        return a->getPosition().y < b->getPosition().y;
     }
 };
 
 class Field
 {
     private:
+    
         int currY;
         std::vector<std::unique_ptr<Obstacle>> obstacles;
         static std::random_device ranDevice;
@@ -36,6 +37,13 @@ class Field
         void generateObstacle();
 
         void removeObstacles();
+
+        const std::vector<std::unique_ptr<Obstacle>>& getObstacles()
+        {
+            return obstacles;
+        }
+
+        void reset();
 
         void draw(sf::RenderWindow& w);
 

@@ -8,7 +8,7 @@ class Obstacle
 {
 protected:
     float speed;
-    float posX, posY;
+    sf::Vector2f pos;
     sf::RectangleShape sprite;
     static std::random_device ranDevice;
     static rng_t generator;
@@ -22,9 +22,11 @@ public:
 
     virtual void move(float dt);
 
-    virtual const float getYPosition();
+    virtual const sf::Vector2f& getPosition();
 
     virtual void draw(sf::RenderWindow& window);
+
+    virtual const std::vector<sf::Vector2f>& getOuterPixels() = 0;
 
     virtual ~Obstacle() {}
 
@@ -32,12 +34,15 @@ public:
 
 class BufferObstacle : public Obstacle
 {
+    std::vector<sf::Vector2f> emptyVector; // empty vector to pass into getOuterPixels
 public:
     BufferObstacle() : Obstacle() {}
 
-    virtual void move(float dt) override {}
+    void move(float dt) override {}
 
     void draw(sf::RenderWindow& w) override {}
+
+    const std::vector<sf::Vector2f>& getOuterPixels() { return emptyVector; }
 
 };
 
@@ -46,7 +51,7 @@ class ObstacleHolder : public Obstacle
 {
 protected:
     static std::string textureFilename;
-    static std::vector<std::pair<float, float>> outerPixels;
+    static std::vector<sf::Vector2f> outerPixels;
     static sf::Texture texture;
 public:
 
@@ -61,30 +66,31 @@ public:
 
         if (!textureImage.loadFromFile(ObstacleHolder<T>::textureFilename))
         {        
-            std::cout << "Texture file " + ObstacleHolder<T>::textureFilename + ".png could not be loaded.";
+            std::cerr << "Texture file " + ObstacleHolder<T>::textureFilename + " could not be loaded.";
             return STATUS_CODES::FILE_NOT_FOUND;
         }
 
-        // getting edges
+        // getting pixels at the edge of image
         const sf::Color emptyPixel (0, 0, 0, 0); // transparent pixel
         for (int x = 0, width = OBSTACLE_CONSTS::TEXTURE_RECT.width; x < width; ++x)
         {
             for (int y = 0, height = OBSTACLE_CONSTS::TEXTURE_RECT.height; y < height; ++y)
             {
                 // non-empty pixel neighboring one or more empty pixels is on the edge
-                if (textureImage.getPixel(x, y) != emptyPixel && 
-                    textureImage.getPixel(x + 1, y) == emptyPixel &&
-                    textureImage.getPixel(x, y + 1) == emptyPixel &&
-                    textureImage.getPixel(x - 1, y) == emptyPixel &&
-                    textureImage.getPixel(x, y - 1) == emptyPixel)
+                if (
+                    textureImage.getPixel(x, y).a != 0 && (
+                        textureImage.getPixel(x + 1, y).a == 0 ||
+                        textureImage.getPixel(x, y + 1).a == 0 ||
+                        textureImage.getPixel(x - 1, y).a == 0 ||
+                        textureImage.getPixel(x, y - 1).a == 0 )
+                )
                 {
-                    float relx = x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX, rely = y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX;
+                    textureImage.setPixel(x, y, sf::Color(0, 255, 0, 255));
+                    float relx = (x - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX) * OBSTACLE_CONSTS::MAX_SPRITE_SCALE, rely = (y - OBSTACLE_CONSTS::TEXTURE_ORIGIN_PX) * OBSTACLE_CONSTS::MAX_SPRITE_SCALE;
                     ObstacleHolder<T>::outerPixels.emplace_back(relx, rely);
                 }
             }
         }
-        
-        sort(ObstacleHolder<T>::outerPixels.begin(), ObstacleHolder<T>::outerPixels.end());
 
         ObstacleHolder<T>::texture.loadFromImage(textureImage);
         ObstacleHolder<T>::texture.setSmooth(true);
@@ -93,12 +99,12 @@ public:
 
     static sf::Texture& getTexture()
     {
-        return texture;
+        return ObstacleHolder<T>::texture;
     }
 
-    static std::vector<std::pair<float, float>>& getOuterPixels()
+    const std::vector<sf::Vector2f>& getOuterPixels()
     {
-        return outerPixels;
+        return ObstacleHolder<T>::outerPixels;
     }
 
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "common_external_includes.h"
 
+enum STATE_CONSTS { CLOSED = -1, PREGAME_MENU, GAME, PAUSE_MENU, RESTART, GAME_OVER };
+
 namespace DISPLAY_CONSTS 
 {
 
@@ -13,7 +15,7 @@ namespace DISPLAY_CONSTS
 namespace GAME_CONSTS 
 {
     
-    const sf::Vector2f INITIAL_VELOCITY = {0, 0};
+    const sf::Vector2f INITIAL_VELOCITY = {0.f, 0.f};
 
     const std::string WINDOW_NAME = "FeelsRocketMan";
 
@@ -28,7 +30,7 @@ namespace FIELD_CONSTS
 
     const size_t MAX_OBSTACLES = 50;
 
-    const float OBSTACLE_DELETION_CUTOFF_PX = 1120;
+    const float OBSTACLE_DELETION_CUTOFF_PX = 1120.f;
 
     const int OBSTACLE_NUMBERS_LOWER = 1;
 
@@ -44,17 +46,17 @@ namespace OBSTACLE_CONSTS
 
     const float MAXIMUM_SPEED_PX_PER_S = 160.0f;
 
-    const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400.f, 400.f);
+    const sf::IntRect TEXTURE_RECT = sf::IntRect(0, 0, 400, 400);
 
-    const float MIN_SPRITE_SCALE = 0.5;
+    const float MIN_SPRITE_SCALE = .25f;
 
-    const float MAX_SPRITE_SCALE = 1;
+    const float MAX_SPRITE_SCALE = .5f;
 
     const sf::Vector2f MAX_RECT_DIMENSIONS = {200.f, 200.f};
 
-    const float TEXTURE_ORIGIN_PX = 200;
+    const float TEXTURE_ORIGIN_PX = 200.f;
 
-    const float BUFFER_Y_POSITION_PX = -1000;
+    const float BUFFER_Y_POSITION_PX = -1000.f;
 
 }
 
@@ -79,6 +81,8 @@ namespace SHIP_CONSTS
 
     const float INITIAL_ANGLE_RAD = M_PI_2;
 
+    const float SPRITE_INITIAL_ANGLE_RAD = 0.f;
+
     const float LEFT_BOUND = SHIP_CONSTS::SHIP_RADIUS_PX;
 
     const float RIGHT_BOUND = DISPLAY_CONSTS::WIDTH - SHIP_CONSTS::SHIP_RADIUS_PX;
@@ -89,8 +93,63 @@ namespace SHIP_CONSTS
 
 }
 
+namespace BUTTON_CONSTS
+{
+
+    const sf::Vector2f SIZE = {400.f, 150.f};
+
+    const sf::IntRect TEXTURE_RECT = {0, 0, 400, 150};
+
+}
+
+namespace PREGAME_MENU_BUTTON_CONSTS
+{
+
+    const std::string PLAY_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/playbutton.png";
+
+    const sf::Vector2f PLAY_BUTTON_POSITION = {( DISPLAY_CONSTS::WIDTH - BUTTON_CONSTS::SIZE.x ) / 2, ( DISPLAY_CONSTS::HEIGHT - BUTTON_CONSTS::SIZE.y ) / 2};
+
+}
+
+namespace PAUSE_MENU_BUTTON_CONSTS
+{
+
+    const std::string RESUME_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/resumebutton.png";
+
+    const sf::Vector2f RESUME_BUTTON_POSITION = { DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+    
+    const std::string RESTART_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/restartbutton.png";
+
+    const sf::Vector2f RESTART_BUTTON_POSITION = { 2 * DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  2 * DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+    
+    const std::string QUIT_BUTTON_TEXTURE_FILE_PATH = "resources/buttons/quitbutton.png";
+
+    const sf::Vector2f QUIT_BUTTON_POSITION = { 3 * DISPLAY_CONSTS::WIDTH / 4 - BUTTON_CONSTS::SIZE.x  / 2,  3 * DISPLAY_CONSTS::HEIGHT / 4 - BUTTON_CONSTS::SIZE.y / 2};
+
+}
+
+namespace GAME_OVER_SCREEN_CONSTS
+{
+
+    const std::string MSG = "Game Over";
+
+    const std::string FONT_FILE_PATH = "resources/RobotoMono-Bold.ttf";
+
+    const int GAME_OVER_TEXT_SIZE = 48;
+
+    const int GAME_OVER_TEXT_VERTICAL_OFFSET = 256;
+
+    const int SCORE_TEXT_SIZE = 28;
+
+    const int SCORE_TEXT_VERTICAL_OFFSET = 348;
+
+    const int HORIZONTAL_OFFSET = 120;
+
+}
+
 namespace STATUS_CODES
 {
+
     const int SUCCESS = 0;
 
     const int FILE_NOT_FOUND = -1;

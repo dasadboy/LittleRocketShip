@@ -2,13 +2,14 @@
 
 #define FULL_CIRCLE ( 2 * M_PI )
 #define HALF_CIRCLE ( M_PI )
-#define CCW90 ( .5 * M_PI )
+#define CCW90 ( M_PI_2 )
 #define RADTODEGREES(rad) ( ( rad ) * 180.f / ( M_PI ) )
 #define DEGREESTORAD(deg) ( ( deg ) * ( M_PI ) / 180.f )
 
 sf::Texture Ship::texture;
 
-Ship::Ship() {
+Ship::Ship() 
+{
     this->radius = SHIP_CONSTS::SHIP_RADIUS_PX;
     this->health = SHIP_CONSTS::INITIAL_HEALTH;
     this->angleInRad = SHIP_CONSTS::INITIAL_ANGLE_RAD;
@@ -23,11 +24,23 @@ Ship::Ship() {
     this->shipSprite.setTextureRect(SHIP_CONSTS::TEXTURE_RECT);
 }
 
+int Ship::loadTexture() 
+{
+    if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
+    {
+        std::cout << "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
+        return STATUS_CODES::FILE_NOT_FOUND;
+    }
+    Ship::texture.setSmooth(true);
+    return 0;
+}
+
 bool Ship::collides(const sf::Vector2f& pixelPos) const
 {
     auto [x, y] = this->shipSprite.getPosition();
     float dx = pixelPos.x - x, dy = pixelPos.y - y;
-    return this->radius < std::sqrt(dx * dx + dy * dy);
+    float dist = std::sqrt(dx * dx + dy * dy);
+    return this->radius > dist;
 }
 
 void Ship::rotateShip(float rad)
@@ -55,20 +68,15 @@ void Ship::move(float dt)
     this->shipSprite.setPosition( this->pos );
 }
 
-void Ship::setVelocityVector(float vel, float angle)
+void Ship::reset()
 {
-    this->velocity = vel;
-    this->angleInRad = angle;
-}
-
-float Ship::getAngleInRadians() const 
-{
-    return ( DEGREESTORAD( this->shipSprite.getRotation() ) );
-}
-
-sf::Vector2f Ship::getPosition() const 
-{
-    return this->shipSprite.getPosition();
+    this->radius = SHIP_CONSTS::SHIP_RADIUS_PX;
+    this->health = SHIP_CONSTS::INITIAL_HEALTH;
+    this->velocity = SHIP_CONSTS::INITIAL_VELOCITY_PS_PER_S;
+    this->pos = SHIP_CONSTS::INITIAL_POSITION;
+    this->shipSprite.setPosition(SHIP_CONSTS::INITIAL_POSITION);
+    this->angleInRad = SHIP_CONSTS::INITIAL_ANGLE_RAD;
+    this->shipSprite.setRotation(SHIP_CONSTS::SPRITE_INITIAL_ANGLE_RAD);
 }
 
 void Ship::draw(sf::RenderWindow& window)

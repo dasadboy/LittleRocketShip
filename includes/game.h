@@ -6,7 +6,7 @@
 class Game
 {
     private:
-        sf::RenderWindow window;
+        sf::RenderWindow& window;
         Field field;
         Ship ship;
         // ship sprite will move horizontally while field moves vertically
@@ -18,14 +18,16 @@ class Game
         static std::uniform_real_distribution<float> timeDist;
         sf::Clock obstacleGenerationTimer;
         int obstacleGenerationTimeCutoff;
+        sf::Clock scoreTimer;
+        int score;
 
     public:
 
-        Game();
+        Game(sf::RenderWindow& window);
 
-        int init();
+        static int loadTextures();
 
-        void run();
+        int run();
 
         void moveShip();
 
@@ -34,5 +36,12 @@ class Game
         void drawScreen();
 
         void move(sf::Vector2i& mousePos);
+
+        void reset();
+
+        int getScore() const
+        {
+            return this->score;
+        }
 
 };

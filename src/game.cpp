@@ -4,15 +4,18 @@ typedef std::mt19937 rng_t;
 
 std::random_device Game::ranDevice;
 rng_t Game::generator (Game::ranDevice());
-std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES); // uniform distribution
+std::uniform_real_distribution<float> Game::timeDist (GAME_CONSTS::MIN_TIME_BETWEEN_OBSTACLES, GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES);
 
-Game::Game()
+#define calculatePartialScore(time) ( ( time ) / 10 ) * 10
+
+Game::Game(sf::RenderWindow& window) : window(window)
 {
     this->LMBHeldDown = false;
     this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
+    this->score = 0;
 }
 
-int Game::init()
+int Game::loadTextures()
 {
     int returnCode = STATUS_CODES::SUCCESS;
     returnCode = Ship::loadTexture();
@@ -33,12 +36,13 @@ int Game::init()
     returnCode = ObstacleHolder<Obstacle5>::loadTexture();
     if (returnCode != STATUS_CODES::SUCCESS)
         return returnCode;
-    this->window.create(sf::VideoMode(DISPLAY_CONSTS::WIDTH, DISPLAY_CONSTS::HEIGHT), GAME_CONSTS::WINDOW_NAME);
     return returnCode;
 }
 
-void Game::run()
+int Game::run()
 {
+    this->deltat.restart();
+    this->scoreTimer.restart();
     while (this->window.isOpen())
     {
         moveShip();
@@ -49,6 +53,19 @@ void Game::run()
             this->obstacleGenerationTimer.restart();
             this->obstacleGenerationTimeCutoff = Game::timeDist(Game::generator);
         }
+        for (const std::unique_ptr<Obstacle>& obstacle: this->field.getObstacles())
+        {
+            sf::Vector2f pos = obstacle->getPosition();
+            for (const sf::Vector2f& p: obstacle->getOuterPixels())
+            {
+                
+                if (this->ship.collides(p + pos))
+                {
+                    this->score += calculatePartialScore( this->scoreTimer.getElapsedTime().asMilliseconds() );
+                    return STATE_CONSTS::GAME_OVER;
+                }
+            }
+        }
         sf::Event event;
         while (this->window.pollEvent(event))
         {
@@ -56,14 +73,19 @@ void Game::run()
             {
                 terminate();
             }
-            else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+            else if ((event.type == sf::Event::KeyPressed) && (event.key.code = sf::Keyboard::Escape))
+            {
+                this->score += calculatePartialScore( this->scoreTimer.getElapsedTime().asMilliseconds() );
+                return STATE_CONSTS::PAUSE_MENU;
+            }
+            else if ((event.type == sf::Event::MouseButtonReleased) && (event.mouseButton.button == sf::Mouse::Left))
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
                 this->ship.setVelocityVector(SHIP_CONSTS::THRUST_L1_PX_PER_S, std::atan2(shipy -  static_cast<float>(mousey), shipx - static_cast<float>(mousex)));
                 this->LMBHeldDown = false;
             }
-            else if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) || this->LMBHeldDown == true)
+            else if (((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Left)) || this->LMBHeldDown == true)
             {
                 auto [shipx, shipy] = this->ship.getPosition();
                 auto [mousex, mousey] = sf::Mouse::getPosition(this->window);
@@ -76,6 +98,7 @@ void Game::run()
         drawScreen();
         this->window.display();
     }
+    return STATE_CONSTS::CLOSED;
 }
 
 void Game::moveShip() 
@@ -95,4 +118,16 @@ void Game::drawScreen()
 {
     this->ship.draw(this->window);
     this->field.draw(this->window);
+}
+
+void Game::reset()
+{
+    this->LMBHeldDown = false;
+    this->obstacleGenerationTimeCutoff = GAME_CONSTS::MAX_TIME_BETWEEN_OBSTACLES;
+
+    this->field.reset();
+    this->ship.reset();
+
+    this->deltat.restart();
+    this->obstacleGenerationTimer.restart();
 }

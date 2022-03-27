@@ -1,6 +1,9 @@
 #pragma once
 #include "constants.h"
 
+#define RADTODEGREES(rad) ( ( rad ) * 180.f / ( M_PI ) )
+#define DEGREESTORAD(deg) ( ( deg ) * ( M_PI ) / 180.f )
+
 class Ship
 {
     private:
@@ -11,21 +14,12 @@ class Ship
         float velocity;
         float angleInRad;
         sf::Vector2f pos;
-        float vel;
 
     public:
 
         Ship();
 
-        static int loadTexture() {
-            if (!Ship::texture.loadFromFile(SHIP_CONSTS::PATH_TO_TEXTURE))
-            {
-                std::cout << "Texture file '" + SHIP_CONSTS::PATH_TO_TEXTURE + "' could not be loaded";
-                return STATUS_CODES::FILE_NOT_FOUND;
-            }
-            Ship::texture.setSmooth(true);
-            return 0;
-        }
+        static int loadTexture();
 
         bool collides(const sf::Vector2f& pixelPos) const;
 
@@ -33,12 +27,24 @@ class Ship
 
         void move(float dx);
 
-        void setVelocityVector(float vel, float angle);
-
-        float getAngleInRadians() const;
-
-        sf::Vector2f getPosition() const;
+        void reset();
 
         void draw(sf::RenderWindow& window);
+
+        void setVelocityVector(float vel, float angle)
+        {
+            this->velocity = vel;
+            this->angleInRad = angle;
+        }
+
+        float getAngleInRadians() const 
+        {
+            return ( DEGREESTORAD( this->shipSprite.getRotation() ) );
+        }
+
+        const sf::Vector2f getPosition() const 
+        {
+            return this->pos;
+        }
 
 };
